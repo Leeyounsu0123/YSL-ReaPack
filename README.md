@@ -41,13 +41,6 @@ Region CSV 가져오기·내보내기, 미리보기, UID 기반 비교·병합, 
 - js_ReaScriptAPI: 네이티브 파일 선택 창 사용
 - REAPER 7.62 이상 권장
 
-## 설치 주소
-
-GitHub 저장소를 만든 후 아래 주소에서 `YOUR_GITHUB_NAME`만 본인의 GitHub 사용자명으로 바꿉니다.
-
-```text
-https://github.com/YOUR_GITHUB_NAME/YSL-ReaPack/raw/main/index.xml
-```
 
 REAPER에서 다음 순서로 등록합니다.
 
