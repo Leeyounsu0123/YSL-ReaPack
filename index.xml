@@ -14,7 +14,7 @@
       <version name="1.0.0" author="Yoon-Soo Lee" time="2026-06-19T16:57:12Z">
         <changelog><![CDATA[+ Initial release package for GitHub and ReaPack distribution
 + Fixed ReaImGui BeginChild/EndChild compatibility and bulk rename popup crashes]]></changelog>
-        <source main="main">https://github.com/Leeyounsu0123/YSL-ReaPack/raw/4163e2615e9d27c06b0f46f719106bf66dee4f7d/Scripts/YSL/Yoon-Soo%20Lee_Region%20Sync%20Manager.lua</source>
+        <source main="main">https://github.com/Leeyounsu0123/YSL-ReaPack/raw/4163e2615e9d27c06b0f46f719106bf66dee4f7d/Scripts/YSL/YSL%20Region%20Sync%20Manager.lua</source>
       </version>
     </reapack>
     <reapack name="YSL_Sound Lib Manager Pro.lua" type="script" desc="Sound Lib Manager Pro">
