@@ -1,13 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <index version="1" name="YSL" commit="e0ddcf724cb5c4be3530fb365f63b96635e861fa">
-<category name="YSL"><reapack name="YSL_Region Sync Manager.lua" type="script" desc="Region Sync Manager - CSV collaboration editor"><metadata><description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
+  <category name="YSL">
+    <reapack name="YSL_Region Sync Manager.lua" type="script" desc="Region Sync Manager - CSV collaboration editor">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
 {\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
 \widowctrl\hyphauto
 
 {\pard \ql \f0 \sa180 \li0 \fi0 Safe region CSV import/export, preview, UID-based diff/merge, staged editing, project metadata, reports, bilingual UI and bulk tools. Required: ReaImGui (installable from the default ReaTeam Extensions repository). Optional: js_ReaScriptAPI for native file dialogs. REAPER 7.62 or newer is recommended for native per-region hidden-state support.\par}
 }
-]]></description></metadata><version name="1.0.0" author="Yoon-Soo Lee" time="2026-06-19T17:16:16Z"><changelog><![CDATA[+ Initial release package for GitHub and ReaPack distribution
-+ Fixed ReaImGui BeginChild/EndChild compatibility and bulk rename popup crashes]]></changelog><source main="main">https://github.com/Leeyounsu0123/YSL-ReaPack/raw/e0ddcf724cb5c4be3530fb365f63b96635e861fa/YSL/YSL_Region%20Sync%20Manager.lua</source></version></reapack><reapack name="YSL_Sound Lib Manager Pro.lua" type="script" desc="Sound Lib Manager Pro"><metadata><description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
+]]></description>
+      </metadata>
+      <version name="1.0.0" author="Yoon-Soo Lee" time="2026-06-19T17:16:16Z">
+        <changelog><![CDATA[+ Initial release package for GitHub and ReaPack distribution
++ Fixed ReaImGui BeginChild/EndChild compatibility and bulk rename popup crashes]]></changelog>
+        <source main="main">https://github.com/Leeyounsu0123/YSL-ReaPack/raw/e0ddcf724cb5c4be3530fb365f63b96635e861fa/YSL/YSL_Region%20Sync%20Manager.lua</source>
+      </version>
+    </reapack>
+    <reapack name="YSL_Sound Lib Manager Pro.lua" type="script" desc="Sound Lib Manager Pro">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
 {\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
 \widowctrl\hyphauto
 
@@ -29,5 +41,64 @@
 {\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel1 \b \fs32 \u46972 ?\u51060 ?\u49440 ?\u49828 ?\par}
 {\pard \ql \f0 \sa180 \li0 \fi0 Copyright (c) 2026 Yoon-Soo Lee. All rights reserved. Yoon-Soo Lee\u51032 ? \u48324 ?\u46020 ? \u49436 ?\u47732 ? \u54728 ?\u44032 ? \u50630 ?\u51060 ? \u51116 ?\u48176 ?\u54252 ?, \u51116 ?\u54032 ?\u47588 ? \u46608 ?\u45716 ? 2\u52264 ? \u48176 ?\u54252 ?\u54624 ? \u49688 ? \u50630 ?\u49845 ?\u45768 ?\u45796 ?.\par}
 }
-]]></description></metadata><version name="1.0.1" author="Yoon-Soo Lee" time="2026-06-19T17:16:16Z"><changelog><![CDATA[+ GitHub/ReaPack 배포용 메타데이터를 추가했습니다.
-+ v1.0.1 최초 배포 패키지를 구성했습니다.]]></changelog><source main="main">https://github.com/Leeyounsu0123/YSL-ReaPack/raw/e0ddcf724cb5c4be3530fb365f63b96635e861fa/YSL/YSL_Sound%20Lib%20Manager%20Pro.lua</source></version></reapack></category></index>
+]]></description>
+      </metadata>
+      <version name="1.0.1" author="Yoon-Soo Lee" time="2026-06-19T17:16:16Z">
+        <changelog><![CDATA[+ GitHub/ReaPack 배포용 메타데이터를 추가했습니다.
++ v1.0.1 최초 배포 패키지를 구성했습니다.]]></changelog>
+        <source main="main">https://github.com/Leeyounsu0123/YSL-ReaPack/raw/e0ddcf724cb5c4be3530fb365f63b96635e861fa/YSL/YSL_Sound%20Lib%20Manager%20Pro.lua</source>
+      </version>
+    </reapack>
+  </category>
+  <metadata>
+    <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel0 \b \fs36 YSL ReaPack Repository\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Yoon-Soo Lee\u51032 ? REAPER \u46020 ?\u44396 ?\u47484 ? ReaPack\u51004 ?\u47196 ? \u49444 ?\u52824 ?\u54616 ?\u44256 ? \u50629 ?\u45936 ?\u51060 ?\u53944 ?\u54616 ?\u44592 ? \u50948 ?\u54620 ? \u51200 ?\u51109 ?\u49548 ?\u51077 ?\u45768 ?\u45796 ?.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel1 \b \fs32 ReaPack \u51200 ?\u51109 ?\u49548 ? \u51060 ?\u47492 ?\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 {\b YSL}\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel1 \b \fs32 \u54252 ?\u54632 ? \u54056 ?\u53412 ?\u51648 ?\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel2 \b \fs28 Sound Lib Manager Pro\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 REAPER\u50640 ?\u49436 ? \u49324 ?\u50868 ?\u46300 ? \u46972 ?\u51060 ?\u48652 ?\u47084 ?\u47532 ? \u44160 ?\u49353 ?\u50612 ?\u50752 ? \u53468 ?\u44536 ?\u47484 ? \u44288 ?\u47532 ?\u54616 ?\u45716 ? ReaImGui \u44592 ?\u48152 ? \u46020 ?\u44396 ?\u51077 ?\u45768 ?\u45796 ?.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \u51452 ?\u50836 ? \u44592 ?\u45733 ?:\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab \u49892 ?\u49884 ?\u44036 ? \u45796 ?\u51473 ? \u45800 ?\u50612 ? \u44160 ?\u49353 ?\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab \u44160 ?\u49353 ?\u50612 ? \u48143 ? \u53468 ?\u44536 ? \u54200 ?\u51665 ?\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab \u51600 ?\u44200 ?\u52286 ?\u44592 ?\u50752 ? \u52572 ?\u44540 ? \u49324 ?\u50857 ? \u51221 ?\u47148 ?\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab AND/OR \u53468 ?\u44536 ? \u54596 ?\u53552 ?\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab JSON \u48177 ?\u50629 ? \u48143 ? \u48373 ?\u50896 ?\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab CSV \u44032 ?\u51256 ?\u50724 ?\u44592 ? \u48143 ? \u45236 ?\u48372 ?\u45236 ?\u44592 ?\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \u54596 ?\u49688 ? \u44396 ?\u49457 ?:\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab REAPER\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab ReaPack\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab ReaImGui 0.9.2 \u51060 ?\u49345 ?\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel2 \b \fs28 Region Sync Manager\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Region CSV \u44032 ?\u51256 ?\u50724 ?\u44592 ?\u183 ?\u45236 ?\u48372 ?\u45236 ?\u44592 ?, \u48120 ?\u47532 ?\u48372 ?\u44592 ?, UID \u44592 ?\u48152 ? \u48708 ?\u44368 ?\u183 ?\u48337 ?\u54633 ?, \u51068 ?\u44292 ? \u54200 ?\u51665 ? \u48143 ? \u48320 ?\u44221 ? \u48372 ?\u44256 ? \u44592 ?\u45733 ?\u51012 ? \u51228 ?\u44277 ?\u54616 ?\u45716 ? \u46020 ?\u44396 ?\u51077 ?\u45768 ?\u45796 ?.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \u54596 ?\u49688 ? \u44396 ?\u49457 ?:\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab REAPER\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab ReaImGui\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \u49440 ?\u53469 ? \u44396 ?\u49457 ?:\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab js_ReaScriptAPI: \u45348 ?\u51060 ?\u54000 ?\u48652 ? \u54028 ?\u51068 ? \u49440 ?\u53469 ? \u52285 ? \u49324 ?\u50857 ?\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab REAPER 7.62 \u51060 ?\u49345 ? \u44428 ?\u51109 ?\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 REAPER\u50640 ?\u49436 ? \u45796 ?\u51020 ? \u49692 ?\u49436 ?\u47196 ? \u46321 ?\u47197 ?\u54633 ?\u45768 ?\u45796 ?.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \f1 Extensions\line
+\u8594 ? ReaPack\line
+\u8594 ? Import repositories\line
+\u8594 ? \u50948 ? \u51452 ?\u49548 ? \u48537 ?\u50668 ?\u45347 ?\u44592 ?\line
+\u8594 ? OK\line
+\u8594 ? Synchronize packages\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \u44536 ?\u45796 ?\u51020 ? {\f1 Extensions > ReaPack > Browse packages}\u50640 ?\u49436 ? \u54056 ?\u53412 ?\u51648 ?\u47749 ?\u51012 ? \u44160 ?\u49353 ?\u54644 ? \u49444 ?\u52824 ?\u54633 ?\u45768 ?\u45796 ?.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel1 \b \fs32 \u50629 ?\u45936 ?\u51060 ?\u53944 ? \u48169 ?\u48277 ?\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Lua \u54028 ?\u51068 ?\u51012 ? \u49688 ?\u51221 ?\u54624 ? \u46412 ?\u45716 ? \u54028 ?\u51068 ? \u49345 ?\u45800 ?\u51032 ? {\f1 @version}\u51012 ? \u48152 ?\u46300 ?\u49884 ? \u50732 ?\u47532 ?\u44256 ? {\f1 @changelog}\u46020 ? \u44081 ?\u49888 ?\u54633 ?\u45768 ?\u45796 ?.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \u50696 ?:\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \f1 -- @version 1.0.2\line
+-- @changelog\line
+--   + \u48320 ?\u44221 ? \u45236 ?\u50857 ?\u51012 ? \u51089 ?\u49457 ?\u54633 ?\u45768 ?\u45796 ?.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \u48320 ?\u44221 ? \u54028 ?\u51068 ?\u51012 ? GitHub\u50640 ? Push\u54616 ?\u47732 ? GitHub Actions\u44032 ? {\f1 index.xml}\u51012 ? \u51088 ?\u46041 ?\u51004 ?\u47196 ? \u44160 ?\u49324 ?\u54616 ?\u44256 ? \u44081 ?\u49888 ?\u54633 ?\u45768 ?\u45796 ?.\line {\f1 index.xml}\u51008 ? \u51649 ?\u51217 ? \u54200 ?\u51665 ?\u54616 ?\u51648 ? \u50506 ?\u45716 ? \u44163 ?\u51012 ? \u44428 ?\u51109 ?\u54633 ?\u45768 ?\u45796 ?.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel1 \b \fs32 \u46972 ?\u51060 ?\u49440 ?\u49828 ?\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \u51088 ?\u49464 ?\u54620 ? \u45236 ?\u50857 ?\u51008 ? {\f1 LICENSE.md}\u47484 ? \u54869 ?\u51064 ?\u54616 ?\u49464 ?\u50836 ?.\par}
+}
+]]></description>
+  </metadata>
+</index>
