@@ -1,3 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" name="YSL ReaPack">
-</index>
+<index version="1" name="YSL ReaPack" commit="24d61c1c3de5e9d4e72c6b10f01f7ab11ab13807">
+<category name="Tools"><reapack name="YSL_Region Sync Manager.lua" type="script" desc="Region Sync Manager - CSV collaboration tool"><metadata><description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel0 \b \fs36 Region Sync Manager\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Manage and collaborate on REAPER regions with staged editing and CSV workflows.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel1 \b \fs32 Features\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Safe staged region editing\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab CSV import and export\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab UID-based diff and 3-way merge\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Region QC and bulk tools\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Automatic backups and crash-recovery drafts\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Saved window geometry and diagnostic logs\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab English and Korean interface\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel1 \b \fs32 Requirements\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab REAPER\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab ReaImGui\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab js_ReaScriptAPI is optional for native file dialogs\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab REAPER 7.62 or newer is recommended for native hidden-region support\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel1 \b \fs32 License\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Copyright (c) 2026 Yoon-Soo Lee. All rights reserved. Redistribution, resale, or secondary distribution requires written permission.\par}
+}
+]]></description></metadata><version name="1.0.0" author="Yoon-Soo Lee" time="2026-06-20T17:10:01Z"><changelog><![CDATA[+ 1.0.0 maintenance: restored the proven crash-safe Apply path.
++ Soft orange highlight for modified region rows.
++ Keeps staged region editing, CSV workflows, Region QC, 3-way merge,
+  automatic backups, recovery drafts, bilingual UI, and diagnostics.]]></changelog><source main="main">https://github.com/Leeyounsu0123/YSL-ReaPack/raw/24d61c1c3de5e9d4e72c6b10f01f7ab11ab13807/Tools/YSL_Region%20Sync%20Manager.lua</source></version></reapack><reapack name="YSL_Sound Lib Manager Pro.lua" type="script" desc="Sound Lib Manager Pro"><metadata><description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel0 \b \fs36 Sound Lib Manager Pro\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Manage sound-library keywords and tags quickly in REAPER.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel1 \b \fs32 Features\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Real-time multi-word search\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Keyword and tag editing\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Favorites and usage-based sorting\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Smart Collections and AND/OR tag filters\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Automatic tag suggestions\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Media Explorer handoff\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Safe delete with an 8-second undo window\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab External JSON storage with rotating backups\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab CSV import and export\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab English and Korean interface\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel1 \b \fs32 Requirements\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab REAPER\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab ReaImGui 0.9.2 or later\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel1 \b \fs32 License\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Copyright (c) 2026 Yoon-Soo Lee. All rights reserved. Redistribution, resale, or secondary distribution requires written permission.\par}
+}
+]]></description></metadata><version name="1.0.0" author="Yoon-Soo Lee" time="2026-06-20T17:10:01Z"><changelog><![CDATA[+ Initial public release for YSL ReaPack.
++ Stable external JSON storage, rotating backups, search caching, Smart Collections,
+  tag suggestions, Media Explorer support, bilingual UI, and 8-second delete undo.]]></changelog><source main="main">https://github.com/Leeyounsu0123/YSL-ReaPack/raw/24d61c1c3de5e9d4e72c6b10f01f7ab11ab13807/Tools/YSL_Sound%20Lib%20Manager%20Pro.lua</source></version></reapack></category><metadata><description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel0 \b \fs36 YSL ReaPack\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 REAPER tools by {\b Yoon-Soo Lee}.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel1 \b \fs32 Packages\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel2 \b \fs28 Region Sync Manager\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 A region collaboration and management tool for REAPER.\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Staged region editing\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab CSV import and export\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab UID-based diff and 3-way merge\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Region QC and bulk tools\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Automatic backups and crash-recovery drafts\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab English and Korean interface\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel2 \b \fs28 Sound Lib Manager Pro\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 A keyword and tag manager for sound libraries.\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Fast keyword and tag search\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Favorites, usage sorting, and Smart Collections\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Automatic tag suggestions\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Media Explorer handoff\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab External JSON storage and rotating backups\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab CSV import and export\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab 8-second delete undo\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab English and Korean interface\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel1 \b \fs32 Requirements\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab REAPER\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab ReaPack\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab ReaImGui\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab {\f1 js_ReaScriptAPI} is optional for Region Sync Manager file dialogs\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel1 \b \fs32 Install with ReaPack\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 After this repository has been uploaded to GitHub and the {\f1 deploy} workflow has finished successfully, import this URL in REAPER:\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \f1 https://raw.githubusercontent.com/YOUR_GITHUB_USERNAME/YSL-ReaPack/main/index.xml\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 In REAPER:\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 1.\tx360\tab Open {\b Extensions > ReaPack > Import repositories}\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 2.\tx360\tab Paste the URL above after replacing {\f1 YOUR_GITHUB_USERNAME}\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 3.\tx360\tab Synchronize packages\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 4.\tx360\tab Search for {\f1 Region Sync Manager} or {\f1 Sound Lib Manager Pro}\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel1 \b \fs32 Repository maintenance\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 The GitHub Actions workflows validate the script metadata and automatically rebuild {\f1 index.xml} with the official {\f1 reapack-index} tool whenever the {\f1 main} or {\f1 master} branch is updated.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 For a new public release:\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 1.\tx360\tab Update the script's {\f1 @version}\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 2.\tx360\tab Update {\f1 @changelog}\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 3.\tx360\tab Commit and push\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 4.\tx360\tab Wait for the {\f1 deploy} workflow to finish\sa180\par}
+}
+]]></description></metadata></index>
