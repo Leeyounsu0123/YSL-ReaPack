@@ -1,0 +1,32 @@
+YSL-ReaPack 1.0.0 Validation Report
+
+Repository name: YSL-ReaPack
+
+Packages
+- Tools/YSL_Region Sync Manager.lua
+- Tools/YSL_Sound Lib Manager Pro.lua
+
+Changes
+- Both public package versions unified to 1.0.0.
+- Region Sync Manager display version unified to 1.0.0.
+- Sound Lib Manager Pro display version unified to 1.0.0.
+- Search Composer state, settings, UI, row buttons, and cleanup logic removed.
+- Media Explorer handoff retained in the Quick Search bar.
+
+Validation
+- Lua compile check: PASS (both files)
+- XML parse check: PASS
+- YAML parse check: PASS (check.yml, deploy.yml)
+- ReaPack metadata @version: PASS (1.0.0 on both files)
+- Search Composer residual references: PASS (none)
+- Package files are inside a category subdirectory: PASS (Tools/)
+- GitHub Actions index validation workflow: included
+- GitHub Actions automatic index.xml rebuild workflow: included
+
+Important
+- The included index.xml is a valid seed index.
+- On the first push to GitHub, the deploy workflow runs the official reapack-index tool,
+  rebuilds package entries with the actual repository owner and commit URLs, commits index.xml,
+  and pushes it back to the repository.
+- GitHub username was not provided, so README and the Korean upload guide use
+  YOUR_GITHUB_USERNAME only in the user-facing import URL example.
