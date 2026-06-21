@@ -59,7 +59,11 @@ local APP_NAME = 'SLM Pro v1.0.0'
 local EXT_KEY_V7 = 'DataV7'
 local DATA_VERSION = 10.0
 
-local ctx = ImGui.CreateContext(APP_NAME)
+local context_flags = 0
+if ImGui.ConfigFlags_DockingEnable then
+    context_flags = context_flags | ImGui.ConfigFlags_DockingEnable
+end
+local ctx = ImGui.CreateContext(APP_NAME, context_flags)
 local ui_font = ImGui.CreateFont('sans-serif', 12)
 ImGui.Attach(ctx, ui_font)
 
@@ -119,6 +123,7 @@ local window_state = {
     y = tonumber(reaper.GetExtState(EXT_SECTION, 'WindowY')),
     w = tonumber(reaper.GetExtState(EXT_SECTION, 'WindowW')) or 590,
     h = tonumber(reaper.GetExtState(EXT_SECTION, 'WindowH')) or 680,
+    dock_id = tonumber(reaper.GetExtState(EXT_SECTION, 'WindowDockID')),
 }
 local window_state_applied = false
 local last_window_state_save = 0
@@ -738,14 +743,30 @@ local function SaveWindowState(force)
     if not ImGui.GetWindowPos or not ImGui.GetWindowSize then return end
     local now = reaper.time_precise()
     if not force and now - last_window_state_save < 1.0 then return end
+
+    if ImGui.IsWindowDocked and ImGui.GetWindowDockID then
+        local ok_docked, docked = pcall(ImGui.IsWindowDocked, ctx)
+        if ok_docked and docked then
+            local ok_dock_id, dock_id = pcall(ImGui.GetWindowDockID, ctx)
+            if ok_dock_id and dock_id and dock_id ~= 0 then
+                window_state.dock_id = dock_id
+                reaper.SetExtState(EXT_SECTION, 'WindowDockID', tostring(dock_id), true)
+                last_window_state_save = now
+            end
+            return
+        end
+    end
+
     local ok_pos, x, y = pcall(ImGui.GetWindowPos, ctx)
     local ok_size, w, h = pcall(ImGui.GetWindowSize, ctx)
     if ok_pos and ok_size and w and h and w > 0 and h > 0 then
         window_state.x, window_state.y, window_state.w, window_state.h = x, y, w, h
+        window_state.dock_id = nil
         reaper.SetExtState(EXT_SECTION, 'WindowX', tostring(math.floor(x)), true)
         reaper.SetExtState(EXT_SECTION, 'WindowY', tostring(math.floor(y)), true)
         reaper.SetExtState(EXT_SECTION, 'WindowW', tostring(math.floor(w)), true)
         reaper.SetExtState(EXT_SECTION, 'WindowH', tostring(math.floor(h)), true)
+        reaper.SetExtState(EXT_SECTION, 'WindowDockID', '', true)
         last_window_state_save = now
     end
 end
@@ -811,11 +832,13 @@ local function GetTagColor(tag_name)
 end
 
 local function GetTagButtonWidth(label, extra_padding)
+    label = tostring(label or '')
     local text_width = ImGui.CalcTextSize(ctx, label)
     return text_width + (extra_padding or 14)
 end
 
 local function DrawTagButton(label, color, id, width, height)
+    label = tostring(label or '')
     local base_color = MakeOpaque(color)
     local hover_color = AdjustColor(base_color, 1.12)
     local active_color = AdjustColor(base_color, 0.82)
@@ -843,7 +866,7 @@ local function DrawWrappedButtons(items, id_prefix, selected_value, on_click)
     local spacing = 4
 
     for index, item in ipairs(items) do
-        local label = item.label
+        local label = tostring(item.label or '')
         if selected_value == item.value then
             label = '✓ ' .. label
         end
@@ -862,34 +885,52 @@ local function DrawWrappedButtons(items, id_prefix, selected_value, on_click)
     end
 end
 
+local function NormalizeTagButtonItem(tag_item)
+    if type(tag_item) == 'table' then
+        local name = SanitizeStoredText(tag_item.name)
+        if name == '' then
+            return nil, nil
+        end
+        return name, MakeOpaque(tag_item.color)
+    end
+
+    local name = SanitizeStoredText(tag_item)
+    if name == '' then
+        return nil, nil
+    end
+    return name, GetTagColor(name)
+end
+
 local function DrawWrappedTagButtons(tag_items, id_prefix, on_click, show_count, selected_set)
     local available_width = ImGui.GetContentRegionAvail(ctx)
     local used_width = 0
     local spacing = 5
 
     for index, tag_item in ipairs(tag_items) do
-        local tag_name = tag_item.name or tag_item
-        local color = tag_item.color or GetTagColor(tag_name)
-        local selected = selected_set and selected_set[tag_name] or false
-        local label = tag_name
+        local tag_name, color = NormalizeTagButtonItem(tag_item)
+        if tag_name then
+            local selected = selected_set and selected_set[tag_name] or false
+            local label = tag_name
 
-        if show_count then
-            label = string.format('%s (%d)', tag_name, tag_count_cache[tag_name] or 0)
-        end
-        if selected then
-            label = '✓ ' .. label
-        end
+            if show_count then
+                label = string.format('%s (%d)', tag_name, tag_count_cache[tag_name] or 0)
+            end
+            if selected then
+                label = '✓ ' .. label
+            end
 
-        local width = GetTagButtonWidth(label)
-        if used_width > 0 and used_width + spacing + width <= available_width then
-            ImGui.SameLine(ctx, 0, spacing)
-            used_width = used_width + spacing + width
-        else
-            used_width = width
-        end
+            local width = GetTagButtonWidth(label)
+            if used_width > 0 and used_width + spacing + width <= available_width then
+                ImGui.SameLine(ctx, 0, spacing)
+                used_width = used_width + spacing + width
+            else
+                used_width = width
+            end
 
-        if DrawTagButton(label, color, id_prefix .. tostring(index), width, 21) and on_click then
-            on_click(tag_name)
+            local button_id = string.format('%s%d_%s', tostring(id_prefix or 'Tag'), index, tag_name)
+            if DrawTagButton(label, color, button_id, width, 21) and on_click then
+                on_click(tag_name)
+            end
         end
     end
 end
@@ -3317,8 +3358,12 @@ function RunFrame()
     ImGui.PushStyleColor(ctx, ImGui.Col_Separator, 0x343A43FF)
 
     if not window_state_applied then
-        if window_state.x and window_state.y then ImGui.SetNextWindowPos(ctx, window_state.x, window_state.y, ImGui.Cond_Always) end
-        ImGui.SetNextWindowSize(ctx, window_state.w, window_state.h, ImGui.Cond_Always)
+        if window_state.dock_id and window_state.dock_id ~= 0 and ImGui.SetNextWindowDockID then
+            pcall(ImGui.SetNextWindowDockID, ctx, window_state.dock_id, ImGui.Cond_FirstUseEver)
+        else
+            if window_state.x and window_state.y then ImGui.SetNextWindowPos(ctx, window_state.x, window_state.y, ImGui.Cond_FirstUseEver) end
+            ImGui.SetNextWindowSize(ctx, window_state.w, window_state.h, ImGui.Cond_FirstUseEver)
+        end
         window_state_applied = true
     end
     local visible, open = ImGui.Begin(ctx, APP_NAME, true)
