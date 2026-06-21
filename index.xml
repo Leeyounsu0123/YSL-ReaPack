@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" name="YSL ReaPack" commit="24d61c1c3de5e9d4e72c6b10f01f7ab11ab13807">
-<category name="Tools"><reapack name="YSL_Region Sync Manager.lua" type="script" desc="Region Sync Manager - CSV collaboration tool"><metadata><description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
+<index version="1" name="YSL ReaPack" commit="732bd7c89e85715d31647d39de92705f804f1a9e">
+  <category name="Tools">
+    <reapack name="YSL_Region Sync Manager.lua" type="script" desc="Region Sync Manager - CSV collaboration tool">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
 {\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
 \widowctrl\hyphauto
 
@@ -22,10 +25,19 @@
 {\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel1 \b \fs32 License\par}
 {\pard \ql \f0 \sa180 \li0 \fi0 Copyright (c) 2026 Yoon-Soo Lee. All rights reserved. Redistribution, resale, or secondary distribution requires written permission.\par}
 }
-]]></description></metadata><version name="1.0.0" author="Yoon-Soo Lee" time="2026-06-20T17:10:01Z"><changelog><![CDATA[+ 1.0.0 maintenance: restored the proven crash-safe Apply path.
+]]></description>
+      </metadata>
+      <version name="1.0.0" author="Yoon-Soo Lee" time="2026-06-20T17:10:01Z">
+        <changelog><![CDATA[+ 1.0.0 maintenance: restored the proven crash-safe Apply path.
 + Soft orange highlight for modified region rows.
 + Keeps staged region editing, CSV workflows, Region QC, 3-way merge,
-  automatic backups, recovery drafts, bilingual UI, and diagnostics.]]></changelog><source main="main">https://github.com/Leeyounsu0123/YSL-ReaPack/raw/24d61c1c3de5e9d4e72c6b10f01f7ab11ab13807/Tools/YSL_Region%20Sync%20Manager.lua</source></version></reapack><reapack name="YSL_Sound Lib Manager Pro.lua" type="script" desc="Sound Lib Manager Pro"><metadata><description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
+  automatic backups, recovery drafts, bilingual UI, and diagnostics.]]></changelog>
+        <source main="main">https://github.com/Leeyounsu0123/YSL-ReaPack/raw/24d61c1c3de5e9d4e72c6b10f01f7ab11ab13807/Tools/YSL_Region%20Sync%20Manager.lua</source>
+      </version>
+    </reapack>
+    <reapack name="YSL_Sound Lib Manager Pro.lua" type="script" desc="Sound Lib Manager Pro">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
 {\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
 \widowctrl\hyphauto
 
@@ -48,9 +60,18 @@
 {\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel1 \b \fs32 License\par}
 {\pard \ql \f0 \sa180 \li0 \fi0 Copyright (c) 2026 Yoon-Soo Lee. All rights reserved. Redistribution, resale, or secondary distribution requires written permission.\par}
 }
-]]></description></metadata><version name="1.0.0" author="Yoon-Soo Lee" time="2026-06-20T17:10:01Z"><changelog><![CDATA[+ Initial public release for YSL ReaPack.
+]]></description>
+      </metadata>
+      <version name="1.0.0" author="Yoon-Soo Lee" time="2026-06-20T17:10:01Z">
+        <changelog><![CDATA[+ Initial public release for YSL ReaPack.
 + Stable external JSON storage, rotating backups, search caching, Smart Collections,
-  tag suggestions, Media Explorer support, bilingual UI, and 8-second delete undo.]]></changelog><source main="main">https://github.com/Leeyounsu0123/YSL-ReaPack/raw/24d61c1c3de5e9d4e72c6b10f01f7ab11ab13807/Tools/YSL_Sound%20Lib%20Manager%20Pro.lua</source></version></reapack></category><metadata><description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
+  tag suggestions, Media Explorer support, bilingual UI, and 8-second delete undo.]]></changelog>
+        <source main="main">https://github.com/Leeyounsu0123/YSL-ReaPack/raw/24d61c1c3de5e9d4e72c6b10f01f7ab11ab13807/Tools/YSL_Sound%20Lib%20Manager%20Pro.lua</source>
+      </version>
+    </reapack>
+  </category>
+  <metadata>
+    <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
 {\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
 \widowctrl\hyphauto
 
@@ -96,4 +117,6 @@
 {\pard \ql \f0 \sa0 \li360 \fi-360 3.\tx360\tab Commit and push\par}
 {\pard \ql \f0 \sa0 \li360 \fi-360 4.\tx360\tab Wait for the {\f1 deploy} workflow to finish\sa180\par}
 }
-]]></description></metadata></index>
+]]></description>
+  </metadata>
+</index>
