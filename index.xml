@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" name="YSL ReaPack" commit="732bd7c89e85715d31647d39de92705f804f1a9e">
+<index version="1" name="YSL ReaPack" commit="daa69c5fd1f7863804df9d01dd42576cebab92c3">
   <category name="Tools">
     <reapack name="YSL_Region Sync Manager.lua" type="script" desc="Region Sync Manager - CSV collaboration tool">
       <metadata>
@@ -21,18 +21,25 @@
 {\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab REAPER\par}
 {\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab ReaImGui\par}
 {\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab js_ReaScriptAPI is optional for native file dialogs\par}
-{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab REAPER 7.62 or newer is recommended for native hidden-region support\sa180\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab REAPER 7.62 or newer is recommended for native hidden-region support\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Tested target: REAPER 7.76\sa180\par}
 {\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel1 \b \fs32 License\par}
 {\pard \ql \f0 \sa180 \li0 \fi0 Copyright (c) 2026 Yoon-Soo Lee. All rights reserved. Redistribution, resale, or secondary distribution requires written permission.\par}
 }
 ]]></description>
       </metadata>
-      <version name="1.0.0" author="Yoon-Soo Lee" time="2026-06-20T17:10:01Z">
-        <changelog><![CDATA[+ 1.0.0 maintenance: restored the proven crash-safe Apply path.
+      <version name="1.0.3" author="Yoon-Soo Lee" time="2026-07-10T03:22:25Z">
+        <changelog><![CDATA[+ 1.0.3: enables ReaImGui docking, removes forced undock resize, and narrows the Note column/default width.
++ 1.0.2: opens wide enough to show the Note column and preserves safe floating geometry.
++ Dock/undock transitions no longer save unstable dock-node dimensions.
++ 1.0.1: fixed repeated numeric suffixes, added selected-region bulk delete,
+  and replaced the fragile recent-files arrow popup with a sanitized button.
++ Verified compatibility target: REAPER 7.76.
++ 1.0.0 maintenance: restored the proven crash-safe Apply path.
 + Soft orange highlight for modified region rows.
 + Keeps staged region editing, CSV workflows, Region QC, 3-way merge,
   automatic backups, recovery drafts, bilingual UI, and diagnostics.]]></changelog>
-        <source main="main">https://github.com/Leeyounsu0123/YSL-ReaPack/raw/24d61c1c3de5e9d4e72c6b10f01f7ab11ab13807/Tools/YSL_Region%20Sync%20Manager.lua</source>
+        <source main="main">https://github.com/Leeyounsu0123/YSL-ReaPack/raw/daa69c5fd1f7863804df9d01dd42576cebab92c3/Tools/YSL_Region%20Sync%20Manager.lua</source>
       </version>
     </reapack>
     <reapack name="YSL_Sound Lib Manager Pro.lua" type="script" desc="Sound Lib Manager Pro">
@@ -56,17 +63,25 @@
 {\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab English and Korean interface\sa180\par}
 {\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel1 \b \fs32 Requirements\par}
 {\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab REAPER\par}
-{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab ReaImGui 0.9.2 or later\sa180\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab ReaImGui 0.9.2 or later\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab js_ReaScriptAPI is optional and enables direct Media Explorer search-history capture\sa180\par}
 {\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel1 \b \fs32 License\par}
 {\pard \ql \f0 \sa180 \li0 \fi0 Copyright (c) 2026 Yoon-Soo Lee. All rights reserved. Redistribution, resale, or secondary distribution requires written permission.\par}
 }
 ]]></description>
       </metadata>
-      <version name="1.0.0" author="Yoon-Soo Lee" time="2026-06-20T17:10:01Z">
-        <changelog><![CDATA[+ Initial public release for YSL ReaPack.
+      <version name="1.0.3" author="Yoon-Soo Lee" time="2026-07-10T03:22:25Z">
+        <changelog><![CDATA[+ 1.0.3: safer dock transitions and narrower default floating width.
++ 1.0.2: larger automatic floating size and dock-transition-safe geometry saving.
++ Captures Media Explorer search text through js_ReaScriptAPI and shows persistent history.
++ 1.0.1: removed fragile raw dock-ID restore logic for safe dock/undock.
++ Media Explorer handoff now auto-saves or updates the entered search query.
++ Pressing Enter in Quick Search performs the same save-and-handoff action.
++ Verified compatibility target: REAPER 7.76.
++ Initial public release for YSL ReaPack.
 + Stable external JSON storage, rotating backups, search caching, Smart Collections,
   tag suggestions, Media Explorer support, bilingual UI, and 8-second delete undo.]]></changelog>
-        <source main="main">https://github.com/Leeyounsu0123/YSL-ReaPack/raw/24d61c1c3de5e9d4e72c6b10f01f7ab11ab13807/Tools/YSL_Sound%20Lib%20Manager%20Pro.lua</source>
+        <source main="main">https://github.com/Leeyounsu0123/YSL-ReaPack/raw/daa69c5fd1f7863804df9d01dd42576cebab92c3/Tools/YSL_Sound%20Lib%20Manager%20Pro.lua</source>
       </version>
     </reapack>
   </category>
