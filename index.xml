@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" name="YSL ReaPack" commit="95c15a26421b58dd9ba2059ee6aa379496dd3a2d">
+<index version="1" name="YSL ReaPack" commit="3936af7827888b4a937239f2e96543f6b5de6cd5">
   <category name="Tools">
     <reapack name="YSL_Region Sync Manager.lua" type="script" desc="Region Sync Manager - CSV collaboration tool">
       <metadata>
@@ -28,7 +28,7 @@
 }
 ]]></description>
       </metadata>
-      <version name="1.0.4" author="Yoon-Soo Lee" time="2026-07-14T02:30:47Z">
+      <version name="1.0.4" author="Yoon-Soo Lee" time="2026-07-14T03:46:26Z">
         <changelog><![CDATA[+ 1.0.4: 1080x780 first-open size, centered management columns, and clearer Apply controls.
 + Adds unsaved-project backup fallback, full region/ExtState rollback, and project-wide name deduplication.
 + Removes forced undocking and unused dock-resize state while preserving stable floating geometry.
@@ -42,7 +42,7 @@
 + Soft orange highlight for modified region rows.
 + Keeps staged region editing, CSV workflows, Region QC, 3-way merge,
   automatic backups, recovery drafts, bilingual UI, and diagnostics.]]></changelog>
-        <source main="main">https://github.com/Leeyounsu0123/YSL-ReaPack/raw/95c15a26421b58dd9ba2059ee6aa379496dd3a2d/Tools/YSL_Region%20Sync%20Manager.lua</source>
+        <source main="main">https://github.com/Leeyounsu0123/YSL-ReaPack/raw/3936af7827888b4a937239f2e96543f6b5de6cd5/Tools/YSL_Region%20Sync%20Manager.lua</source>
       </version>
     </reapack>
     <reapack name="YSL_Sound Lib Manager Pro.lua" type="script" desc="Sound Lib Manager Pro">
@@ -73,7 +73,7 @@
 }
 ]]></description>
       </metadata>
-      <version name="1.0.4" author="Yoon-Soo Lee" time="2026-07-14T02:30:47Z">
+      <version name="1.0.4" author="Yoon-Soo Lee" time="2026-07-14T03:46:26Z">
         <changelog><![CDATA[+ Compact 560px default layout, direct result-to-Media-Explorer search,
   and an explicit applied-tag preview when adding keywords.
 + Removes the redundant standalone sort controls below Smart Collections.
@@ -91,7 +91,7 @@
 + Initial public release for YSL ReaPack.
 + Stable external JSON storage, rotating backups, search caching, Smart Collections,
   tag suggestions, Media Explorer support, bilingual UI, and 8-second delete undo.]]></changelog>
-        <source main="main">https://github.com/Leeyounsu0123/YSL-ReaPack/raw/95c15a26421b58dd9ba2059ee6aa379496dd3a2d/Tools/YSL_Sound%20Lib%20Manager%20Pro.lua</source>
+        <source main="main">https://github.com/Leeyounsu0123/YSL-ReaPack/raw/3936af7827888b4a937239f2e96543f6b5de6cd5/Tools/YSL_Sound%20Lib%20Manager%20Pro.lua</source>
       </version>
     </reapack>
   </category>
