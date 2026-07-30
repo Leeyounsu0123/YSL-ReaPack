@@ -1,6 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" name="YSL Tools">
+<index version="1" name="YSL Tools" commit="db3ad3018d89f09ef020f486fea0df49230eb9f6">
   <category name="Tools">
+    <reapack name="YSL_Item Envelope Manager.lua" type="script" desc="YSL Tools - Item Envelope Manager">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel0 \b \fs36 Item Envelope Manager\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 A compact non-destructive sound-design editor for Volume, Pitch, Pan, and Speed curves.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel1 \b \fs32 Workflow\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 1.\tx360\tab Select audio items, drag one region, then Ctrl+drag to add more regions.\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 2.\tx360\tab Choose Volume, Pitch, Pan, or Speed.\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 3.\tx360\tab The current curve is previewed over that exact waveform region.\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 4.\tx360\tab Edit points, Alt+drag a segment for curvature, or load a preset.\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 5.\tx360\tab Open/close Volume, Pitch, and Pan envelopes without deleting their points.\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 6.\tx360\tab Apply maps every representative range proportionally to all selected items.\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 7.\tx360\tab Speed uses replaceable Preview Takes for safe A/B, Commit, and Original Restore.\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel1 \b \fs32 Requirements\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab REAPER 7.0 or later\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab ReaImGui 0.9.2 or later\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel1 \b \fs32 License\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Copyright (c) 2026 Yoon-Soo Lee. All rights reserved. Redistribution, resale, or secondary distribution requires written permission.\par}
+}
+]]></description>
+        <link rel="website">https://github.com/Leeyounsu0123/YSL-ReaPack</link>
+      </metadata>
+      <version name="1.5.0" author="Yoon-Soo Lee" time="2026-07-30T14:45:56Z">
+        <changelog><![CDATA[+ Reduces waveform draw density while preserving the visible peak shape and
+  editable curve overlay.
++ Polls REAPER item selection at a short interval instead of rescanning every
+  selected item multiple times per UI frame.
++ Caches native Take-envelope enabled state to avoid repeated state-chunk reads.
++ Keeps multi-range editing, native Volume/Pitch/Pan envelopes, Speed Preview,
+  user presets, and bilingual controls intact.]]></changelog>
+        <source main="main">https://github.com/Leeyounsu0123/YSL-ReaPack/raw/db3ad3018d89f09ef020f486fea0df49230eb9f6/Tools/YSL_Item%20Envelope%20Manager.lua</source>
+      </version>
+    </reapack>
     <reapack name="YSL_Region Sync Manager.lua" type="script" desc="YSL Tools - Region Sync Manager">
       <metadata>
         <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
@@ -25,10 +61,27 @@
 {\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Tested target: REAPER 7.76\sa180\par}
 {\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel1 \b \fs32 License\par}
 {\pard \ql \f0 \sa180 \li0 \fi0 Copyright (c) 2026 Yoon-Soo Lee. All rights reserved. Redistribution, resale, or secondary distribution requires written permission.\par}
-}]]></description>
-        <link rel="website" href="https://github.com/Leeyounsu0123/YSL-ReaPack">YSL Tools</link>
+}
+]]></description>
+        <link rel="website">https://github.com/Leeyounsu0123/YSL-ReaPack</link>
       </metadata>
-      <version name="1.5.0" author="Yoon-Soo Lee" time="2026-07-30T00:00:00Z">
+      <version name="1.0.4" author="Yoon-Soo Lee" time="2026-07-14T03:46:26Z">
+        <changelog><![CDATA[+ 1.0.4: 1080x780 first-open size, centered management columns, and clearer Apply controls.
++ Adds unsaved-project backup fallback, full region/ExtState rollback, and project-wide name deduplication.
++ Removes forced undocking and unused dock-resize state while preserving stable floating geometry.
++ 1.0.3: enables ReaImGui docking, removes forced undock resize, and narrows the Note column/default width.
++ 1.0.2: opens wide enough to show the Note column and preserves safe floating geometry.
++ Dock/undock transitions no longer save unstable dock-node dimensions.
++ 1.0.1: fixed repeated numeric suffixes, added selected-region bulk delete,
+  and replaced the fragile recent-files arrow popup with a sanitized button.
++ Verified compatibility target: REAPER 7.76.
++ 1.0.0 maintenance: restored the proven crash-safe Apply path.
++ Soft orange highlight for modified region rows.
++ Keeps staged region editing, CSV workflows, Region QC, 3-way merge,
+  automatic backups, recovery drafts, bilingual UI, and diagnostics.]]></changelog>
+        <source main="main">https://github.com/Leeyounsu0123/YSL-ReaPack/raw/3936af7827888b4a937239f2e96543f6b5de6cd5/Tools/YSL_Region%20Sync%20Manager.lua</source>
+      </version>
+      <version name="1.5.0" author="Yoon-Soo Lee" time="2026-07-30T14:45:56Z">
         <changelog><![CDATA[+ Debounces project-change rescans so dragging or moving regions no longer
   triggers a full region refresh on every UI frame.
 + Saves crash-recovery drafts only after staged edits settle instead of
@@ -36,7 +89,7 @@
 + Stops unchanged window geometry from being written repeatedly.
 + Limits each editable/import page to a lightweight 100-row maximum while
   preserving every region through pagination.]]></changelog>
-        <source main="main">https://raw.githubusercontent.com/Leeyounsu0123/YSL-ReaPack/main/Tools/YSL_Region%20Sync%20Manager.lua</source>
+        <source main="main">https://github.com/Leeyounsu0123/YSL-ReaPack/raw/db3ad3018d89f09ef020f486fea0df49230eb9f6/Tools/YSL_Region%20Sync%20Manager.lua</source>
       </version>
     </reapack>
     <reapack name="YSL_Sound Lib Manager Pro.lua" type="script" desc="YSL Tools - Sound Lib Manager Pro">
@@ -64,10 +117,31 @@
 {\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab js_ReaScriptAPI is optional and enables direct Media Explorer search-history capture\sa180\par}
 {\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel1 \b \fs32 License\par}
 {\pard \ql \f0 \sa180 \li0 \fi0 Copyright (c) 2026 Yoon-Soo Lee. All rights reserved. Redistribution, resale, or secondary distribution requires written permission.\par}
-}]]></description>
-        <link rel="website" href="https://github.com/Leeyounsu0123/YSL-ReaPack">YSL Tools</link>
+}
+]]></description>
+        <link rel="website">https://github.com/Leeyounsu0123/YSL-ReaPack</link>
       </metadata>
-      <version name="1.5.0" author="Yoon-Soo Lee" time="2026-07-30T00:00:00Z">
+      <version name="1.0.4" author="Yoon-Soo Lee" time="2026-07-14T03:46:26Z">
+        <changelog><![CDATA[+ Compact 560px default layout, direct result-to-Media-Explorer search,
+  and an explicit applied-tag preview when adding keywords.
++ Removes the redundant standalone sort controls below Smart Collections.
++ 1.0.4: selected controls now use stable color toggles instead of check-mark prefixes.
++ Media Explorer history supports save/edit/search/delete, current-query saving, and undoable deletion.
++ Quick Search filtering, keyword saving, and Media Explorer handoff are now separate actions.
++ Adds a persistent Media Explorer automatic-history on/off option.
++ 1.0.3: safer dock transitions and narrower default floating width.
++ 1.0.2: larger automatic floating size and dock-transition-safe geometry saving.
++ Captures Media Explorer search text through js_ReaScriptAPI and shows persistent history.
++ 1.0.1: removed fragile raw dock-ID restore logic for safe dock/undock.
++ Media Explorer handoff now auto-saves or updates the entered search query.
++ Pressing Enter in Quick Search performs the same save-and-handoff action.
++ Verified compatibility target: REAPER 7.76.
++ Initial public release for YSL ReaPack.
++ Stable external JSON storage, rotating backups, search caching, Smart Collections,
+  tag suggestions, Media Explorer support, bilingual UI, and 8-second delete undo.]]></changelog>
+        <source main="main">https://github.com/Leeyounsu0123/YSL-ReaPack/raw/3936af7827888b4a937239f2e96543f6b5de6cd5/Tools/YSL_Sound%20Lib%20Manager%20Pro.lua</source>
+      </version>
+      <version name="1.5.0" author="Yoon-Soo Lee" time="2026-07-30T14:45:56Z">
         <changelog><![CDATA[+ Renders large keyword libraries in lightweight 60-item pages instead of
   rebuilding every off-screen row on every UI frame.
 + Reduces Media Explorer background polling while keeping automatic search
@@ -75,42 +149,7 @@
 + Stops unchanged window geometry from being written repeatedly.
 + Keeps search caching, Smart Collections, backups, CSV transfer, and all
   existing keyword/tag workflows intact.]]></changelog>
-        <source main="main">https://raw.githubusercontent.com/Leeyounsu0123/YSL-ReaPack/main/Tools/YSL_Sound%20Lib%20Manager%20Pro.lua</source>
-      </version>
-    </reapack>
-    <reapack name="YSL_Item Envelope Manager.lua" type="script" desc="YSL Tools - Item Envelope Manager">
-      <metadata>
-        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
-{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
-\widowctrl\hyphauto
-
-{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel0 \b \fs36 Item Envelope Manager\par}
-{\pard \ql \f0 \sa180 \li0 \fi0 A compact non-destructive sound-design editor for Volume, Pitch, Pan, and Speed curves.\par}
-{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel1 \b \fs32 Workflow\par}
-{\pard \ql \f0 \sa0 \li360 \fi-360 1.\tx360\tab Select audio items, drag one region, then Ctrl+drag to add more regions.\par}
-{\pard \ql \f0 \sa0 \li360 \fi-360 2.\tx360\tab Choose Volume, Pitch, Pan, or Speed.\par}
-{\pard \ql \f0 \sa0 \li360 \fi-360 3.\tx360\tab The current curve is previewed over that exact waveform region.\par}
-{\pard \ql \f0 \sa0 \li360 \fi-360 4.\tx360\tab Edit points, Alt+drag a segment for curvature, or load a preset.\par}
-{\pard \ql \f0 \sa0 \li360 \fi-360 5.\tx360\tab Open/close Volume, Pitch, and Pan envelopes without deleting their points.\par}
-{\pard \ql \f0 \sa0 \li360 \fi-360 6.\tx360\tab Apply maps every representative range proportionally to all selected items.\par}
-{\pard \ql \f0 \sa0 \li360 \fi-360 7.\tx360\tab Speed uses replaceable Preview Takes for safe A/B, Commit, and Original Restore.\sa180\par}
-{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel1 \b \fs32 Requirements\par}
-{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab REAPER 7.0 or later\par}
-{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab ReaImGui 0.9.2 or later\sa180\par}
-{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel1 \b \fs32 License\par}
-{\pard \ql \f0 \sa180 \li0 \fi0 Copyright (c) 2026 Yoon-Soo Lee. All rights reserved. Redistribution, resale, or secondary distribution requires written permission.\par}
-}]]></description>
-        <link rel="website" href="https://github.com/Leeyounsu0123/YSL-ReaPack">YSL Tools</link>
-      </metadata>
-      <version name="1.5.0" author="Yoon-Soo Lee" time="2026-07-30T00:00:00Z">
-        <changelog><![CDATA[+ Reduces waveform draw density while preserving the visible peak shape and
-  editable curve overlay.
-+ Polls REAPER item selection at a short interval instead of rescanning every
-  selected item multiple times per UI frame.
-+ Caches native Take-envelope enabled state to avoid repeated state-chunk reads.
-+ Keeps multi-range editing, native Volume/Pitch/Pan envelopes, Speed Preview,
-  user presets, and bilingual controls intact.]]></changelog>
-        <source main="main">https://raw.githubusercontent.com/Leeyounsu0123/YSL-ReaPack/main/Tools/YSL_Item%20Envelope%20Manager.lua</source>
+        <source main="main">https://github.com/Leeyounsu0123/YSL-ReaPack/raw/db3ad3018d89f09ef020f486fea0df49230eb9f6/Tools/YSL_Sound%20Lib%20Manager%20Pro.lua</source>
       </version>
     </reapack>
   </category>
@@ -130,10 +169,7 @@
 {\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab \u51228 ?\u51089 ?\u51088 ?: \u51060 ?\u50980 ?\u49688 ? / Yoon-Soo Lee\par}
 {\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab \u48516 ?\u50556 ?: Game Sound Design \u183 ? Audio Implementation\par}
 {\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab \u47928 ?\u51032 ? \u48143 ? \u54588 ?\u46300 ?\u48177 ?: {\field{\*\fldinst{HYPERLINK "mailto:dldbstn0123@gmail.com"}}{\fldrslt{\ul
-{\field{\*\fldinst{HYPERLINK "mailto:dldbstn0123@gmail.com"}}{\fldrslt{\ul
 dldbstn0123@gmail.com
-}}}
-
 }}}
 \sa180\par}
 {\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel1 \b \fs32 English\par}
@@ -186,7 +222,8 @@ ReaPack \u44277 ?\u49885 ? \u54856 ?\u54168 ?\u51060 ?\u51648 ?
 {\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel1 \b \fs32 License\par}
 {\pard \ql \f0 \sa180 \li0 \fi0 Copyright (c) 2026 Yoon-Soo Lee. All rights reserved.\par}
 {\pard \ql \f0 \sa180 \li0 \fi0 \u49688 ?\u51221 ?\u48376 ?\u51012 ? \u54252 ?\u54632 ?\u54620 ? \u54028 ?\u51068 ?\u51032 ? \u51116 ?\u48176 ?\u54252 ?, \u51116 ?\u54032 ?\u47588 ?, \u51116 ?\u44172 ?\u49884 ? \u48143 ? 2\u52264 ? \u48176 ?\u54252 ?\u50640 ?\u45716 ? \u51228 ?\u51089 ?\u51088 ?\u51032 ? \u49324 ?\u51204 ? \u49436 ?\u47732 ? \u54728 ?\u44032 ?\u44032 ? \u54596 ?\u50836 ?\u54633 ?\u45768 ?\u45796 ?.\par}
-}]]></description>
+}
+]]></description>
     <link rel="website" href="https://github.com/Leeyounsu0123/YSL-ReaPack">GitHub</link>
     <link rel="website" href="https://reapack.com/">ReaPack</link>
   </metadata>
