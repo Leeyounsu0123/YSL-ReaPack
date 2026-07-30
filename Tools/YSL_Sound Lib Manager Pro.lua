@@ -1,24 +1,15 @@
--- @description Sound Lib Manager Pro
--- @version 1.0.4
+-- @description YSL Tools - Sound Lib Manager Pro
+-- @version 1.5.0
 -- @author Yoon-Soo Lee
+-- @link https://github.com/Leeyounsu0123/YSL-ReaPack
 -- @changelog
---   + Compact 560px default layout, direct result-to-Media-Explorer search,
---     and an explicit applied-tag preview when adding keywords.
---   + Removes the redundant standalone sort controls below Smart Collections.
---   + 1.0.4: selected controls now use stable color toggles instead of check-mark prefixes.
---   + Media Explorer history supports save/edit/search/delete, current-query saving, and undoable deletion.
---   + Quick Search filtering, keyword saving, and Media Explorer handoff are now separate actions.
---   + Adds a persistent Media Explorer automatic-history on/off option.
---   + 1.0.3: safer dock transitions and narrower default floating width.
---   + 1.0.2: larger automatic floating size and dock-transition-safe geometry saving.
---   + Captures Media Explorer search text through js_ReaScriptAPI and shows persistent history.
---   + 1.0.1: removed fragile raw dock-ID restore logic for safe dock/undock.
---   + Media Explorer handoff now auto-saves or updates the entered search query.
---   + Pressing Enter in Quick Search performs the same save-and-handoff action.
---   + Verified compatibility target: REAPER 7.76.
---   + Initial public release for YSL ReaPack.
---   + Stable external JSON storage, rotating backups, search caching, Smart Collections,
---     tag suggestions, Media Explorer support, bilingual UI, and 8-second delete undo.
+--   + Renders large keyword libraries in lightweight 60-item pages instead of
+--     rebuilding every off-screen row on every UI frame.
+--   + Reduces Media Explorer background polling while keeping automatic search
+--     history capture responsive.
+--   + Stops unchanged window geometry from being written repeatedly.
+--   + Keeps search caching, Smart Collections, backups, CSV transfer, and all
+--     existing keyword/tag workflows intact.
 -- @about
 --   # Sound Lib Manager Pro
 --   Manage sound-library keywords and tags quickly in REAPER.
@@ -101,7 +92,7 @@ ImGui.ColorEditFlags_NoInputs = ImGuiConst(ImGui.ColorEditFlags_NoInputs, 0)
 ImGui.ColorEditFlags_NoLabel = ImGuiConst(ImGui.ColorEditFlags_NoLabel, 0)
 ImGui.Cond_FirstUseEver = ImGuiConst(ImGui.Cond_FirstUseEver, 0)
 
-local APP_NAME = 'SLM Pro v1.0.4'
+local APP_NAME = 'Sound Lib Manager Pro v1.5.0'
 local EXT_KEY_V7 = 'DataV7'
 local DATA_VERSION = 12.0
 local DEFAULT_WINDOW_W = 560
@@ -305,6 +296,13 @@ local UNDO_DELETE_SECONDS = 8.0
 local data_revision = 0
 local visible_cache_key = nil
 local visible_cache_entries = {}
+YSL_SLM_PAGINATION = {
+    page = 1,
+    page_size = 60,
+    key = nil,
+    favorite_count = 0,
+    summary_dirty = true,
+}
 local last_auto_backup_epoch = tonumber(reaper.GetExtState(EXT_SECTION, 'LastAutoBackupEpoch')) or 0
 local stored_window_geometry_version = tonumber(reaper.GetExtState(EXT_SECTION, 'WindowGeometryVersion')) or 0
 local stored_window_w = tonumber(reaper.GetExtState(EXT_SECTION, 'WindowW')) or DEFAULT_WINDOW_W
@@ -897,6 +895,9 @@ end
 local function InvalidateVisibleKeywordCache()
     visible_cache_key = nil
     visible_cache_entries = {}
+    if YSL_SLM_PAGINATION then
+        YSL_SLM_PAGINATION.summary_dirty = true
+    end
 end
 
 local function DiagnosticAdd(level, message)
@@ -941,13 +942,26 @@ local function SaveWindowState(force)
     local ok_pos, x, y = pcall(ImGui.GetWindowPos, ctx)
     local ok_size, w, h = pcall(ImGui.GetWindowSize, ctx)
     if ok_pos and ok_size and w and h and w >= 100 and h >= 100 then
-        window_state.x, window_state.y = x, y
-        window_state.w = math.max(w, DEFAULT_WINDOW_W)
-        window_state.h = math.max(h, 560)
-        reaper.SetExtState(EXT_SECTION, 'WindowX', tostring(math.floor(x)), true)
-        reaper.SetExtState(EXT_SECTION, 'WindowY', tostring(math.floor(y)), true)
-        reaper.SetExtState(EXT_SECTION, 'WindowW', tostring(math.floor(window_state.w)), true)
-        reaper.SetExtState(EXT_SECTION, 'WindowH', tostring(math.floor(window_state.h)), true)
+        local next_x, next_y = math.floor(x), math.floor(y)
+        local next_w = math.floor(math.max(w, DEFAULT_WINDOW_W))
+        local next_h = math.floor(math.max(h, 560))
+        local unchanged =
+            tonumber(window_state.x) ~= nil and
+            tonumber(window_state.y) ~= nil and
+            math.floor(tonumber(window_state.x)) == next_x and
+            math.floor(tonumber(window_state.y)) == next_y and
+            math.floor(tonumber(window_state.w) or next_w) == next_w and
+            math.floor(tonumber(window_state.h) or next_h) == next_h
+        if unchanged and not force then
+            last_window_state_save = now
+            return
+        end
+        window_state.x, window_state.y = next_x, next_y
+        window_state.w, window_state.h = next_w, next_h
+        reaper.SetExtState(EXT_SECTION, 'WindowX', tostring(next_x), true)
+        reaper.SetExtState(EXT_SECTION, 'WindowY', tostring(next_y), true)
+        reaper.SetExtState(EXT_SECTION, 'WindowW', tostring(next_w), true)
+        reaper.SetExtState(EXT_SECTION, 'WindowH', tostring(next_h), true)
         reaper.SetExtState(EXT_SECTION, 'WindowGeometryVersion', tostring(WINDOW_GEOMETRY_VERSION), true)
         reaper.SetExtState(EXT_SECTION, 'WindowDockID', '', true)
         last_window_state_save = now
@@ -1822,8 +1836,8 @@ local function MatchesLiveSearch(keyword)
     return true
 end
 
-local function MatchesSmartCollection(keyword)
-    local now = os.time()
+local function MatchesSmartCollection(keyword, now)
+    now = tonumber(now) or os.time()
     if smart_collection == 'favorites' then return keyword.favorite == true end
     if smart_collection == 'recent7' then return (tonumber(keyword.last_used) or 0) >= now - 7 * 86400 end
     if smart_collection == 'popular' then return (tonumber(keyword.use_count) or 0) >= 10 end
@@ -1843,9 +1857,11 @@ local function BuildVisibleKeywordEntries()
     if cache_key == visible_cache_key then return visible_cache_entries end
 
     local entries = {}
+    local filter_now = os.time()
     for index, keyword in ipairs(keywords) do
         if MatchesLiveSearch(keyword) and MatchesSelectedTags(keyword.tags)
-            and (not favorite_only or keyword.favorite) and MatchesSmartCollection(keyword) then
+            and (not favorite_only or keyword.favorite)
+            and MatchesSmartCollection(keyword, filter_now) then
             entries[#entries + 1] = {keyword = keyword, index = index}
         end
     end
@@ -2116,7 +2132,7 @@ local function PollMediaExplorerSearchHistory()
     if not media_explorer_auto_record then return end
     local now = reaper.time_precise()
     if now < media_explorer_monitor.next_poll then return end
-    media_explorer_monitor.next_poll = now + 0.25
+    media_explorer_monitor.next_poll = now + 0.50
 
     local edit = MediaExplorerSearchEdit()
     if not edit then
@@ -3158,17 +3174,60 @@ local function DrawSearchTab()
     DrawMediaExplorerHistory()
 
     local entries = BuildVisibleKeywordEntries()
-    local favorite_count = 0
-    for _, keyword in ipairs(keywords) do
-        if keyword.favorite then
-            favorite_count = favorite_count + 1
-        end
+    local pagination_key = table.concat({
+        search_text,
+        filter_mode,
+        sort_mode,
+        tostring(favorite_only),
+        smart_collection,
+        table.concat(selected_filter_tags, '\31'),
+    }, '\30')
+    if YSL_SLM_PAGINATION.key ~= pagination_key then
+        YSL_SLM_PAGINATION.key = pagination_key
+        YSL_SLM_PAGINATION.page = 1
     end
+    if YSL_SLM_PAGINATION.summary_dirty then
+        local favorite_count = 0
+        for _, keyword in ipairs(keywords) do
+            if keyword.favorite then
+                favorite_count = favorite_count + 1
+            end
+        end
+        YSL_SLM_PAGINATION.favorite_count = favorite_count
+        YSL_SLM_PAGINATION.summary_dirty = false
+    end
+    local page_size = YSL_SLM_PAGINATION.page_size
+    local pages = math.max(1, math.ceil(#entries / page_size))
+    YSL_SLM_PAGINATION.page = math.max(
+        1, math.min(YSL_SLM_PAGINATION.page, pages))
+    local page_from = #entries > 0
+        and (YSL_SLM_PAGINATION.page - 1) * page_size + 1 or 0
+    local page_to = math.min(#entries, page_from + page_size - 1)
 
     ImGui.Spacing(ctx)
     ImGui.TextColored(ctx, UI_ACCENT_SOFT, string.format(L("결과 %d개", "%d results"), #entries))
     ImGui.SameLine(ctx, 0, 10)
-    ImGui.TextDisabled(ctx, string.format(L("전체 %d · 즐겨찾기 %d", "Total %d · Favorites %d"), #keywords, favorite_count))
+    ImGui.TextDisabled(ctx, string.format(
+        L("전체 %d · 즐겨찾기 %d", "Total %d · Favorites %d"),
+        #keywords, YSL_SLM_PAGINATION.favorite_count))
+    ImGui.SameLine(ctx, 0, 10)
+    if ImGui.Button(ctx, '<##KeywordPagePrevious', 24, 20)
+        and YSL_SLM_PAGINATION.page > 1 then
+        YSL_SLM_PAGINATION.page = YSL_SLM_PAGINATION.page - 1
+        page_from = (YSL_SLM_PAGINATION.page - 1) * page_size + 1
+        page_to = math.min(#entries, page_from + page_size - 1)
+    end
+    ImGui.SameLine(ctx, 0, 5)
+    ImGui.TextDisabled(ctx, string.format(
+        L("%d / %d 페이지 · %d-%d", "Page %d / %d · %d-%d"),
+        YSL_SLM_PAGINATION.page, pages, page_from, page_to))
+    ImGui.SameLine(ctx, 0, 5)
+    if ImGui.Button(ctx, '>##KeywordPageNext', 24, 20)
+        and YSL_SLM_PAGINATION.page < pages then
+        YSL_SLM_PAGINATION.page = YSL_SLM_PAGINATION.page + 1
+        page_from = (YSL_SLM_PAGINATION.page - 1) * page_size + 1
+        page_to = math.min(#entries, page_from + page_size - 1)
+    end
 
     local keyword_list_visible = ImGui.BeginChild(ctx, 'KeywordList', 0, -1, ImGui.ChildFlags_Border)
     if keyword_list_visible then
@@ -3183,8 +3242,9 @@ local function DrawSearchTab()
                 ImGui.TextDisabled(ctx, L("즐겨찾기만 보기 옵션을 해제해보세요.", "Turn off Favorites only."))
             end
         else
-            for _, entry in ipairs(entries) do
-                if DrawKeywordRow(entry.keyword, entry.index) then break end
+            for index = page_from, page_to do
+                local entry = entries[index]
+                if entry and DrawKeywordRow(entry.keyword, entry.index) then break end
             end
         end
         ImGui.EndChild(ctx)

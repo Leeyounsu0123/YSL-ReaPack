@@ -1,20 +1,15 @@
--- @description Region Sync Manager - CSV collaboration tool
--- @version 1.0.4
+-- @description YSL Tools - Region Sync Manager
+-- @version 1.5.0
 -- @author Yoon-Soo Lee
+-- @link https://github.com/Leeyounsu0123/YSL-ReaPack
 -- @changelog
---   + 1.0.4: 1080x780 first-open size, centered management columns, and clearer Apply controls.
---   + Adds unsaved-project backup fallback, full region/ExtState rollback, and project-wide name deduplication.
---   + Removes forced undocking and unused dock-resize state while preserving stable floating geometry.
---   + 1.0.3: enables ReaImGui docking, removes forced undock resize, and narrows the Note column/default width.
---   + 1.0.2: opens wide enough to show the Note column and preserves safe floating geometry.
---   + Dock/undock transitions no longer save unstable dock-node dimensions.
---   + 1.0.1: fixed repeated numeric suffixes, added selected-region bulk delete,
---     and replaced the fragile recent-files arrow popup with a sanitized button.
---   + Verified compatibility target: REAPER 7.76.
---   + 1.0.0 maintenance: restored the proven crash-safe Apply path.
---   + Soft orange highlight for modified region rows.
---   + Keeps staged region editing, CSV workflows, Region QC, 3-way merge,
---     automatic backups, recovery drafts, bilingual UI, and diagnostics.
+--   + Debounces project-change rescans so dragging or moving regions no longer
+--     triggers a full region refresh on every UI frame.
+--   + Saves crash-recovery drafts only after staged edits settle instead of
+--     rebuilding the complete draft continuously.
+--   + Stops unchanged window geometry from being written repeatedly.
+--   + Limits each editable/import page to a lightweight 100-row maximum while
+--     preserving every region through pagination.
 -- @about
 --   # Region Sync Manager
 --   Manage and collaborate on REAPER regions with staged editing and CSV workflows.
@@ -42,7 +37,7 @@
 -- See LICENSE.md in the distribution repository for permitted use.
 
 local APP_NAME = "Region Sync Manager"
-local APP_VERSION = "1.0.4"
+local APP_VERSION = "1.5.0"
 local EXT_SECTION = "REGION_SYNC_MANAGER"
 local PROJECT_SECTION = "REGION_SYNC_MANAGER_V2"
 local SCHEMA_VERSION = "2"
@@ -626,7 +621,7 @@ local settings = {
   author = "",
   auto_refresh = true,
   utf8_bom = true,
-  page_size = 200,
+  page_size = 75,
   recent_files = {},
   last_csv_path = "",
   export_only_enabled = false,
@@ -796,7 +791,7 @@ local function load_settings()
   settings.author = get("author", settings.author)
   settings.auto_refresh = bool_from_string(get("auto_refresh", "true"), true)
   settings.utf8_bom = bool_from_string(get("utf8_bom", "true"), true)
-  settings.page_size = clamp(tonumber(get("page_size", tostring(settings.page_size))) or 200, 25, 1000)
+  settings.page_size = clamp(tonumber(get("page_size", tostring(settings.page_size))) or 75, 25, 100)
   settings.last_csv_path = get("last_csv_path", "")
   settings.recent_files = split_pipe(get("recent_files", ""))
   settings.export_only_enabled = bool_from_string(get("export_only_enabled", "false"), false)
@@ -830,7 +825,7 @@ local function save_settings()
   settings.author = tostring(settings.author or "")
   settings.last_csv_path = tostring(settings.last_csv_path or "")
   settings.time_format = tostring(settings.time_format or "clock")
-  settings.page_size = clamp(tonumber(settings.page_size) or 200, 25, 1000)
+  settings.page_size = clamp(tonumber(settings.page_size) or 75, 25, 100)
   settings.window_w = clamp(tonumber(settings.window_w) or DEFAULT_WINDOW_W, MIN_WINDOW_W, 4000)
   settings.window_h = clamp(tonumber(settings.window_h) or DEFAULT_WINDOW_H, 520, 3000)
   settings.qc_min_length = clamp(tonumber(settings.qc_min_length) or 0.1, 0, 3600)
@@ -982,9 +977,22 @@ local function update_window_state(force)
   local ok_pos, x, y = pcall(reaper.ImGui_GetWindowPos, ctx)
   local ok_size, w, h = pcall(reaper.ImGui_GetWindowSize, ctx)
   if ok_pos and ok_size and w and h and w >= 100 and h >= 100 then
-    settings.window_x, settings.window_y = x, y
-    settings.window_w = clamp(w, MIN_WINDOW_W, 4000)
-    settings.window_h = clamp(h, 520, 3000)
+    local next_x, next_y = math.floor(x), math.floor(y)
+    local next_w = math.floor(clamp(w, MIN_WINDOW_W, 4000))
+    local next_h = math.floor(clamp(h, 520, 3000))
+    local unchanged =
+      tonumber(settings.window_x) ~= nil and
+      tonumber(settings.window_y) ~= nil and
+      math.floor(tonumber(settings.window_x)) == next_x and
+      math.floor(tonumber(settings.window_y)) == next_y and
+      math.floor(tonumber(settings.window_w) or next_w) == next_w and
+      math.floor(tonumber(settings.window_h) or next_h) == next_h
+    if unchanged and not force then
+      last_window_state_save = now
+      return
+    end
+    settings.window_x, settings.window_y = next_x, next_y
+    settings.window_w, settings.window_h = next_w, next_h
     save_settings()
     last_window_state_save = now
   end
@@ -1384,6 +1392,9 @@ state = {
   last_project_change = reaper.GetProjectStateChangeCount(0),
   external_change = false,
   suppress_change_check_until = 0,
+  next_change_poll = 0,
+  pending_project_change = nil,
+  project_change_seen_at = 0,
   active_tab = "regions",
   import = {
     path = "",
@@ -1395,6 +1406,10 @@ state = {
     schema_version = "",
     legacy = false,
     project_mismatch = false,
+    page = 1,
+    has_baseline = false,
+    counts_cache = nil,
+    counts_dirty = true,
   },
   report = {},
   message = "",
@@ -1412,6 +1427,8 @@ state = {
   recovery_blob = nil,
   open_recovery = false,
   recovery_last_blob = nil,
+  recovery_dirty = true,
+  recovery_save_due = 0,
   qc = {issues = {}, last_run = 0, counts = {error=0, warning=0, info=0}},
 }
 
@@ -1477,12 +1494,18 @@ local function parse_recovery_draft(blob)
   return result
 end
 
-local function persist_recovery_draft()
+local function persist_recovery_draft(force)
+  local now = reaper.time_precise()
+  if not force then
+    if not state.recovery_dirty then return end
+    if now < (state.recovery_save_due or 0) then return end
+  end
   local blob = serialize_recovery_draft()
   if blob ~= state.recovery_last_blob then
     project_ext_set(RECOVERY_KEY, blob)
     state.recovery_last_blob = blob
   end
+  state.recovery_dirty = false
 end
 
 local function clear_recovery_draft()
@@ -1685,6 +1708,8 @@ local function recompute_counts()
   state.selected_count = selected
   state.dirty_count = dirty
   state.error_count = errors
+  state.recovery_dirty = true
+  state.recovery_save_due = reaper.time_precise() + 0.35
 end
 
 
@@ -1735,6 +1760,7 @@ local function refresh_regions(force)
   state.page = 1
   recompute_counts()
   state.last_project_change = reaper.GetProjectStateChangeCount(0)
+  state.pending_project_change = nil
   state.external_change = false
   return true
 end
@@ -2487,6 +2513,10 @@ end
 local function build_import_diff()
   local imp = state.import
   imp.diffs = {}
+  imp.page = 1
+  imp.has_baseline = false
+  imp.counts_cache = nil
+  imp.counts_dirty = true
   local by_uid, by_number = {}, {}
   for _, row in ipairs(state.rows) do
     if row.uid and row.uid ~= "" then by_uid[row.uid] = row end
@@ -2497,6 +2527,7 @@ local function build_import_diff()
 
   for _, source_incoming in ipairs(imp.rows) do
     local incoming = source_incoming
+    if incoming.base then imp.has_baseline = true end
     local current_by_uid = incoming.uid ~= "" and by_uid[incoming.uid] or nil
     local incoming_number = tonumber(incoming.number)
     local current_by_number = incoming_number and by_number[math.floor(incoming_number + 0.5)] or nil
@@ -2571,6 +2602,10 @@ local function load_import_path(path)
     state.import.issues = err_issues or {}
     state.import.rows = {}
     state.import.diffs = {}
+    state.import.page = 1
+    state.import.has_baseline = false
+    state.import.counts_cache = nil
+    state.import.counts_dirty = true
     set_message(T("file_error") .. ": " .. path, "error")
     return false
   end
@@ -3368,11 +3403,16 @@ local function render_regions_tab()
 end
 
 local function import_counts()
+  if not state.import.counts_dirty and state.import.counts_cache then
+    return state.import.counts_cache
+  end
   local counts = {added=0, modified=0, unchanged=0, conflict=0, deleted=0, invalid=0, selected=0}
   for _, d in ipairs(state.import.diffs) do
     counts[d.status] = (counts[d.status] or 0) + 1
     if d.selected then counts.selected = counts.selected + 1 end
   end
+  state.import.counts_cache = counts
+  state.import.counts_dirty = false
   return counts
 end
 
@@ -3394,9 +3434,9 @@ local function render_import_tab()
   reaper.ImGui_Text(ctx, T("source_file") .. ": " .. state.import.path)
   reaper.ImGui_Text(ctx, T("csv_schema") .. ": " .. (state.import.schema_version or "") .. "  |  " .. T("project_id") .. ": " .. (state.import.project_id ~= "" and state.import.project_id or T("legacy_none")))
   if state.import.project_mismatch then reaper.ImGui_TextWrapped(ctx, T("project_mismatch")) end
-  local has_baseline = false
-  for _, row in ipairs(state.import.rows) do if row.base then has_baseline = true; break end end
-  if has_baseline then reaper.ImGui_TextColored(ctx, 0x74D69BFF, T("three_way_active")) end
+  if state.import.has_baseline then
+    reaper.ImGui_TextColored(ctx, 0x74D69BFF, T("three_way_active"))
+  end
 
   local counts = import_counts()
   reaper.ImGui_Text(ctx, string.format("%s %d  |  %s %d  |  %s %d  |  %s %d  |  %s %d  |  %s %d",
@@ -3410,12 +3450,38 @@ local function render_import_tab()
 
   if reaper.ImGui_Button(ctx, T("select_valid")) then
     for _, d in ipairs(state.import.diffs) do d.selected = d.valid and d.status ~= "unchanged" end
+    state.import.counts_dirty = true
   end
   reaper.ImGui_SameLine(ctx)
-  if reaper.ImGui_Button(ctx, T("select_none")) then for _, d in ipairs(state.import.diffs) do d.selected = false end end
+  if reaper.ImGui_Button(ctx, T("select_none")) then
+    for _, d in ipairs(state.import.diffs) do d.selected = false end
+    state.import.counts_dirty = true
+  end
   reaper.ImGui_SameLine(ctx)
   if reaper.ImGui_Button(ctx, T("apply_selected") .. " (" .. tostring(counts.selected) .. ")") then
     apply_import_diff()
+  end
+
+  local import_page_size = math.min(settings.page_size, 100)
+  local import_pages = math.max(1, math.ceil(#state.import.diffs / import_page_size))
+  state.import.page = clamp(tonumber(state.import.page) or 1, 1, import_pages)
+  local import_from = (state.import.page - 1) * import_page_size + 1
+  local import_to = math.min(#state.import.diffs, import_from + import_page_size - 1)
+  if reaper.ImGui_Button(ctx, "<##import_prev") and state.import.page > 1 then
+    state.import.page = state.import.page - 1
+    import_from = (state.import.page - 1) * import_page_size + 1
+    import_to = math.min(#state.import.diffs, import_from + import_page_size - 1)
+  end
+  reaper.ImGui_SameLine(ctx)
+  reaper.ImGui_Text(ctx, string.format(
+    "%s %d %s %d  (%d-%d / %d)",
+    T("page"), state.import.page, T("of"), import_pages,
+    import_from, import_to, #state.import.diffs))
+  reaper.ImGui_SameLine(ctx)
+  if reaper.ImGui_Button(ctx, ">##import_next") and state.import.page < import_pages then
+    state.import.page = state.import.page + 1
+    import_from = (state.import.page - 1) * import_page_size + 1
+    import_to = math.min(#state.import.diffs, import_from + import_page_size - 1)
   end
 
   local flags = reaper.ImGui_TableFlags_Borders() | reaper.ImGui_TableFlags_RowBg() |
@@ -3432,22 +3498,28 @@ local function render_import_tab()
     reaper.ImGui_TableSetupColumn(ctx, T("issue"), reaper.ImGui_TableColumnFlags_WidthFixed(), 220)
     reaper.ImGui_TableHeadersRow(ctx)
 
-    for i, d in ipairs(state.import.diffs) do
-      reaper.ImGui_PushID(ctx, i)
-      reaper.ImGui_TableNextRow(ctx)
-      reaper.ImGui_TableNextColumn(ctx)
-      local c, v = reaper.ImGui_Checkbox(ctx, "##select", d.selected)
-      if c and d.valid then d.selected = v end
-      reaper.ImGui_TableNextColumn(ctx); reaper.ImGui_Text(ctx, status_text(d.status))
-      local num = d.incoming and d.incoming.number or (d.current and d.current.number or 0)
-      reaper.ImGui_TableNextColumn(ctx); reaper.ImGui_Text(ctx, num and ("R" .. tostring(num)) or "-")
-      reaper.ImGui_TableNextColumn(ctx); reaper.ImGui_Text(ctx, d.current and d.current.name or "-")
-      reaper.ImGui_TableNextColumn(ctx); reaper.ImGui_Text(ctx, d.incoming and d.incoming.name or "-")
-      reaper.ImGui_TableNextColumn(ctx); reaper.ImGui_Text(ctx, d.incoming and d.incoming.start_sec and format_time(d.incoming.start_sec) or (d.current and format_time(d.current.start_sec) or "-"))
-      reaper.ImGui_TableNextColumn(ctx); reaper.ImGui_Text(ctx, d.incoming and d.incoming.end_sec and format_time(d.incoming.end_sec) or (d.current and format_time(d.current.end_sec) or "-"))
-      reaper.ImGui_TableNextColumn(ctx); reaper.ImGui_Text(ctx, d.incoming and d.incoming.owner or (d.current and d.current.owner or ""))
-      reaper.ImGui_TableNextColumn(ctx); reaper.ImGui_TextWrapped(ctx, ((d.auto_merged and (T("merged") .. ". ") or "") .. (d.reason or "")))
-      reaper.ImGui_PopID(ctx)
+    for i = import_from, import_to do
+      local d = state.import.diffs[i]
+      if d then
+        reaper.ImGui_PushID(ctx, i)
+        reaper.ImGui_TableNextRow(ctx)
+        reaper.ImGui_TableNextColumn(ctx)
+        local c, v = reaper.ImGui_Checkbox(ctx, "##select", d.selected)
+        if c and d.valid then
+          d.selected = v
+          state.import.counts_dirty = true
+        end
+        reaper.ImGui_TableNextColumn(ctx); reaper.ImGui_Text(ctx, status_text(d.status))
+        local num = d.incoming and d.incoming.number or (d.current and d.current.number or 0)
+        reaper.ImGui_TableNextColumn(ctx); reaper.ImGui_Text(ctx, num and ("R" .. tostring(num)) or "-")
+        reaper.ImGui_TableNextColumn(ctx); reaper.ImGui_Text(ctx, d.current and d.current.name or "-")
+        reaper.ImGui_TableNextColumn(ctx); reaper.ImGui_Text(ctx, d.incoming and d.incoming.name or "-")
+        reaper.ImGui_TableNextColumn(ctx); reaper.ImGui_Text(ctx, d.incoming and d.incoming.start_sec and format_time(d.incoming.start_sec) or (d.current and format_time(d.current.start_sec) or "-"))
+        reaper.ImGui_TableNextColumn(ctx); reaper.ImGui_Text(ctx, d.incoming and d.incoming.end_sec and format_time(d.incoming.end_sec) or (d.current and format_time(d.current.end_sec) or "-"))
+        reaper.ImGui_TableNextColumn(ctx); reaper.ImGui_Text(ctx, d.incoming and d.incoming.owner or (d.current and d.current.owner or ""))
+        reaper.ImGui_TableNextColumn(ctx); reaper.ImGui_TextWrapped(ctx, ((d.auto_merged and (T("merged") .. ". ") or "") .. (d.reason or "")))
+        reaper.ImGui_PopID(ctx)
+      end
     end
     reaper.ImGui_EndTable(ctx)
   end
@@ -3568,7 +3640,7 @@ local function render_settings_popup()
     local bc, bv = reaper.ImGui_Checkbox(ctx, T("utf8_bom"), settings.utf8_bom); if bc then settings.utf8_bom = bv end
     local ec, ev = reaper.ImGui_Checkbox(ctx, T("export_only_enabled"), settings.export_only_enabled); if ec then settings.export_only_enabled = ev end
     local pc, pv = reaper.ImGui_InputInt(ctx, T("page_size"), settings.page_size)
-    if pc then settings.page_size = clamp(pv, 25, 1000); state.filter_dirty = true end
+    if pc then settings.page_size = clamp(pv, 25, 100); state.filter_dirty = true end
     reaper.ImGui_SetNextItemWidth(ctx, 200)
     local tc, tv = combo(ctx, T("time_format") .. "##timeformat", settings.time_format, {
       project=T("time_project"), clock=T("time_clock"), seconds=T("time_seconds")
@@ -3815,12 +3887,25 @@ local function run_frame()
   end
 
 
-  persist_recovery_draft()
-  if settings.auto_refresh and reaper.time_precise() > state.suppress_change_check_until then
-    local change = reaper.GetProjectStateChangeCount(0)
-    if change ~= state.last_project_change then
-      if state.dirty_count == 0 then refresh_regions(true) else state.external_change = true end
-      state.last_project_change = change
+  persist_recovery_draft(false)
+  local frame_time = reaper.time_precise()
+  if settings.auto_refresh and frame_time > state.suppress_change_check_until then
+    if frame_time >= (state.next_change_poll or 0) then
+      state.next_change_poll = frame_time + 0.15
+      local change = reaper.GetProjectStateChangeCount(0)
+      if change ~= state.last_project_change then
+        state.last_project_change = change
+        state.pending_project_change = change
+        state.project_change_seen_at = frame_time
+      end
+    end
+    if state.pending_project_change
+        and frame_time - (state.project_change_seen_at or frame_time) >= 0.30 then
+      if state.dirty_count == 0 then refresh_regions(true)
+      else
+        state.external_change = true
+        state.pending_project_change = nil
+      end
     end
   end
   return open ~= false
@@ -3848,7 +3933,7 @@ local function main_loop()
       pcall(reaper.Undo_EndBlock2, 0, "Region Sync Manager: interrupted transaction", -1)
       transaction_active = false
     end
-    pcall(persist_recovery_draft)
+    pcall(persist_recovery_draft, true)
     diagnostic_add("FATAL", tostring(should_continue))
     local log_path = export_diagnostic_log("fatal error")
     reaper.MB(
@@ -3862,7 +3947,7 @@ end
 
 reaper.atexit(function()
   if not clean_shutdown then
-    pcall(persist_recovery_draft)
+    pcall(persist_recovery_draft, true)
     pcall(try_save_settings)
   end
 end)
