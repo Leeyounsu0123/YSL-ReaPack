@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<index version="1" name="YSL ReaPack" commit="3936af7827888b4a937239f2e96543f6b5de6cd5">
+<index version="1" name="YSL Tools">
   <category name="Tools">
-    <reapack name="YSL_Region Sync Manager.lua" type="script" desc="Region Sync Manager - CSV collaboration tool">
+    <reapack name="YSL_Region Sync Manager.lua" type="script" desc="YSL Tools - Region Sync Manager">
       <metadata>
         <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
 {\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
@@ -25,27 +25,21 @@
 {\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Tested target: REAPER 7.76\sa180\par}
 {\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel1 \b \fs32 License\par}
 {\pard \ql \f0 \sa180 \li0 \fi0 Copyright (c) 2026 Yoon-Soo Lee. All rights reserved. Redistribution, resale, or secondary distribution requires written permission.\par}
-}
-]]></description>
+}]]></description>
+        <link rel="website" href="https://github.com/Leeyounsu0123/YSL-ReaPack">YSL Tools</link>
       </metadata>
-      <version name="1.0.4" author="Yoon-Soo Lee" time="2026-07-14T03:46:26Z">
-        <changelog><![CDATA[+ 1.0.4: 1080x780 first-open size, centered management columns, and clearer Apply controls.
-+ Adds unsaved-project backup fallback, full region/ExtState rollback, and project-wide name deduplication.
-+ Removes forced undocking and unused dock-resize state while preserving stable floating geometry.
-+ 1.0.3: enables ReaImGui docking, removes forced undock resize, and narrows the Note column/default width.
-+ 1.0.2: opens wide enough to show the Note column and preserves safe floating geometry.
-+ Dock/undock transitions no longer save unstable dock-node dimensions.
-+ 1.0.1: fixed repeated numeric suffixes, added selected-region bulk delete,
-  and replaced the fragile recent-files arrow popup with a sanitized button.
-+ Verified compatibility target: REAPER 7.76.
-+ 1.0.0 maintenance: restored the proven crash-safe Apply path.
-+ Soft orange highlight for modified region rows.
-+ Keeps staged region editing, CSV workflows, Region QC, 3-way merge,
-  automatic backups, recovery drafts, bilingual UI, and diagnostics.]]></changelog>
-        <source main="main">https://github.com/Leeyounsu0123/YSL-ReaPack/raw/3936af7827888b4a937239f2e96543f6b5de6cd5/Tools/YSL_Region%20Sync%20Manager.lua</source>
+      <version name="1.5.0" author="Yoon-Soo Lee" time="2026-07-30T00:00:00Z">
+        <changelog><![CDATA[+ Debounces project-change rescans so dragging or moving regions no longer
+  triggers a full region refresh on every UI frame.
++ Saves crash-recovery drafts only after staged edits settle instead of
+  rebuilding the complete draft continuously.
++ Stops unchanged window geometry from being written repeatedly.
++ Limits each editable/import page to a lightweight 100-row maximum while
+  preserving every region through pagination.]]></changelog>
+        <source main="main">https://raw.githubusercontent.com/Leeyounsu0123/YSL-ReaPack/main/Tools/YSL_Region%20Sync%20Manager.lua</source>
       </version>
     </reapack>
-    <reapack name="YSL_Sound Lib Manager Pro.lua" type="script" desc="Sound Lib Manager Pro">
+    <reapack name="YSL_Sound Lib Manager Pro.lua" type="script" desc="YSL Tools - Sound Lib Manager Pro">
       <metadata>
         <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
 {\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
@@ -70,28 +64,53 @@
 {\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab js_ReaScriptAPI is optional and enables direct Media Explorer search-history capture\sa180\par}
 {\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel1 \b \fs32 License\par}
 {\pard \ql \f0 \sa180 \li0 \fi0 Copyright (c) 2026 Yoon-Soo Lee. All rights reserved. Redistribution, resale, or secondary distribution requires written permission.\par}
-}
-]]></description>
+}]]></description>
+        <link rel="website" href="https://github.com/Leeyounsu0123/YSL-ReaPack">YSL Tools</link>
       </metadata>
-      <version name="1.0.4" author="Yoon-Soo Lee" time="2026-07-14T03:46:26Z">
-        <changelog><![CDATA[+ Compact 560px default layout, direct result-to-Media-Explorer search,
-  and an explicit applied-tag preview when adding keywords.
-+ Removes the redundant standalone sort controls below Smart Collections.
-+ 1.0.4: selected controls now use stable color toggles instead of check-mark prefixes.
-+ Media Explorer history supports save/edit/search/delete, current-query saving, and undoable deletion.
-+ Quick Search filtering, keyword saving, and Media Explorer handoff are now separate actions.
-+ Adds a persistent Media Explorer automatic-history on/off option.
-+ 1.0.3: safer dock transitions and narrower default floating width.
-+ 1.0.2: larger automatic floating size and dock-transition-safe geometry saving.
-+ Captures Media Explorer search text through js_ReaScriptAPI and shows persistent history.
-+ 1.0.1: removed fragile raw dock-ID restore logic for safe dock/undock.
-+ Media Explorer handoff now auto-saves or updates the entered search query.
-+ Pressing Enter in Quick Search performs the same save-and-handoff action.
-+ Verified compatibility target: REAPER 7.76.
-+ Initial public release for YSL ReaPack.
-+ Stable external JSON storage, rotating backups, search caching, Smart Collections,
-  tag suggestions, Media Explorer support, bilingual UI, and 8-second delete undo.]]></changelog>
-        <source main="main">https://github.com/Leeyounsu0123/YSL-ReaPack/raw/3936af7827888b4a937239f2e96543f6b5de6cd5/Tools/YSL_Sound%20Lib%20Manager%20Pro.lua</source>
+      <version name="1.5.0" author="Yoon-Soo Lee" time="2026-07-30T00:00:00Z">
+        <changelog><![CDATA[+ Renders large keyword libraries in lightweight 60-item pages instead of
+  rebuilding every off-screen row on every UI frame.
++ Reduces Media Explorer background polling while keeping automatic search
+  history capture responsive.
++ Stops unchanged window geometry from being written repeatedly.
++ Keeps search caching, Smart Collections, backups, CSV transfer, and all
+  existing keyword/tag workflows intact.]]></changelog>
+        <source main="main">https://raw.githubusercontent.com/Leeyounsu0123/YSL-ReaPack/main/Tools/YSL_Sound%20Lib%20Manager%20Pro.lua</source>
+      </version>
+    </reapack>
+    <reapack name="YSL_Item Envelope Manager.lua" type="script" desc="YSL Tools - Item Envelope Manager">
+      <metadata>
+        <description><![CDATA[{\rtf1\ansi\deff0{\fonttbl{\f0 \fswiss Helvetica;}{\f1 \fmodern Courier;}}
+{\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
+\widowctrl\hyphauto
+
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel0 \b \fs36 Item Envelope Manager\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 A compact non-destructive sound-design editor for Volume, Pitch, Pan, and Speed curves.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel1 \b \fs32 Workflow\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 1.\tx360\tab Select audio items, drag one region, then Ctrl+drag to add more regions.\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 2.\tx360\tab Choose Volume, Pitch, Pan, or Speed.\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 3.\tx360\tab The current curve is previewed over that exact waveform region.\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 4.\tx360\tab Edit points, Alt+drag a segment for curvature, or load a preset.\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 5.\tx360\tab Open/close Volume, Pitch, and Pan envelopes without deleting their points.\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 6.\tx360\tab Apply maps every representative range proportionally to all selected items.\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 7.\tx360\tab Speed uses replaceable Preview Takes for safe A/B, Commit, and Original Restore.\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel1 \b \fs32 Requirements\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab REAPER 7.0 or later\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab ReaImGui 0.9.2 or later\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel1 \b \fs32 License\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Copyright (c) 2026 Yoon-Soo Lee. All rights reserved. Redistribution, resale, or secondary distribution requires written permission.\par}
+}]]></description>
+        <link rel="website" href="https://github.com/Leeyounsu0123/YSL-ReaPack">YSL Tools</link>
+      </metadata>
+      <version name="1.5.0" author="Yoon-Soo Lee" time="2026-07-30T00:00:00Z">
+        <changelog><![CDATA[+ Reduces waveform draw density while preserving the visible peak shape and
+  editable curve overlay.
++ Polls REAPER item selection at a short interval instead of rescanning every
+  selected item multiple times per UI frame.
++ Caches native Take-envelope enabled state to avoid repeated state-chunk reads.
++ Keeps multi-range editing, native Volume/Pitch/Pan envelopes, Speed Preview,
+  user presets, and bilingual controls intact.]]></changelog>
+        <source main="main">https://raw.githubusercontent.com/Leeyounsu0123/YSL-ReaPack/main/Tools/YSL_Item%20Envelope%20Manager.lua</source>
       </version>
     </reapack>
   </category>
@@ -100,48 +119,75 @@
 {\colortbl;\red255\green0\blue0;\red0\green0\blue255;}
 \widowctrl\hyphauto
 
-{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel0 \b \fs36 YSL ReaPack\par}
-{\pard \ql \f0 \sa180 \li0 \fi0 REAPER tools by {\b Yoon-Soo Lee}.\par}
-{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel1 \b \fs32 Packages\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel0 \b \fs36 YSL Tools\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 {\b \u44172 ?\u51076 ? \u49324 ?\u50868 ?\u46300 ? \u51089 ?\u50629 ?\u51012 ? \u45908 ? \u48736 ?\u47476 ?\u44256 ? \u54200 ?\u47532 ?\u54616 ?\u44172 ? \u47564 ?\u46300 ?\u45716 ? REAPER \u46020 ?\u44396 ? \u47784 ?\u51020 ?}\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \u50504 ?\u45397 ?\u54616 ?\u49464 ?\u50836 ?. \u44172 ?\u51076 ? \u49324 ?\u50868 ?\u46300 ? \u46356 ?\u51088 ?\u51060 ?\u45320 ? \u51060 ?\u50980 ?\u49688 ?(Yoon-Soo Lee)\u51077 ?\u45768 ?\u45796 ?.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 YSL Tools\u45716 ? \u49892 ?\u51228 ? \u44172 ?\u51076 ? \u49324 ?\u50868 ?\u46300 ? \u51089 ?\u50629 ?\u51012 ? \u54616 ?\u47732 ?\u49436 ? \u45712 ?\u44808 ?\u45912 ? \u48520 ?\u54200 ?\u54632 ?\u51012 ? \u51460 ?\u51060 ?\u44592 ? \u50948 ?\u54644 ? \u51228 ?\u51089 ?\u54620 ? REAPER \u49828 ?\u53356 ?\u47549 ?\u53944 ? \u47784 ?\u51020 ?\u51077 ?\u45768 ?\u45796 ?.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \u47532 ?\u51204 ? \u51221 ?\u47532 ?, \u54801 ?\u50629 ? \u45936 ?\u51060 ?\u53552 ? \u44288 ?\u47532 ?, \u49324 ?\u50868 ?\u46300 ? \u46972 ?\u51060 ?\u48652 ?\u47084 ?\u47532 ? \u44160 ?\u49353 ?\u52376 ?\u47100 ? \u48152 ?\u48373 ?\u51201 ?\u51004 ?\u47196 ? \u47566 ?\u51008 ? \u49884 ?\u44036 ?\u51060 ? \u46308 ?\u50612 ?\u44032 ?\u45716 ? \u51089 ?\u50629 ?\u51012 ? \u51312 ?\u44552 ? \u45908 ? \u48736 ?\u47476 ?\u44256 ? \u50504 ?\u51204 ?\u54616 ?\u44172 ? \u52376 ?\u47532 ?\u54616 ?\u45716 ? \u44163 ?\u51012 ? \u47785 ?\u54364 ?\u47196 ? \u54616 ?\u44256 ? \u51080 ?\u49845 ?\u45768 ?\u45796 ?.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \u52376 ?\u51020 ?\u50640 ?\u45716 ? \u44060 ?\u51064 ? \u51089 ?\u50629 ?\u51012 ? \u54200 ?\u54616 ?\u44172 ? \u47564 ?\u46308 ?\u44592 ? \u50948 ?\u54644 ? \u49884 ?\u51089 ?\u54664 ?\u51648 ?\u47564 ?, \u48708 ?\u49847 ?\u54620 ? \u48520 ?\u54200 ?\u51012 ? \u44202 ?\u44256 ? \u51080 ?\u45716 ? \u45796 ?\u47480 ? \u49324 ?\u50868 ?\u46300 ? \u46356 ?\u51088 ?\u51060 ?\u45320 ?\u50752 ? REAPER \u49324 ?\u50857 ?\u51088 ?\u50640 ?\u44172 ?\u46020 ? \u46020 ?\u50880 ?\u51060 ? \u46112 ? \u49688 ? \u51080 ?\u46020 ?\u47197 ? ReaPack\u51012 ? \u53685 ?\u54644 ? \u44277 ?\u44060 ?\u54616 ?\u44256 ? \u51080 ?\u49845 ?\u45768 ?\u45796 ?.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \u50500 ?\u51649 ? \u48512 ?\u51313 ?\u54620 ? \u48512 ?\u48516 ?\u51060 ? \u51080 ?\u51012 ? \u49688 ? \u51080 ?\u51648 ?\u47564 ?, \u49892 ?\u51228 ? \u51089 ?\u50629 ?\u50640 ?\u49436 ? \u44228 ?\u49549 ? \u49324 ?\u50857 ?\u54616 ?\u44256 ? \u53580 ?\u49828 ?\u53944 ?\u54616 ?\u47732 ?\u49436 ? \u44592 ?\u45733 ?\u44284 ? \u50504 ?\u51221 ?\u49457 ?\u51012 ? \u44060 ?\u49440 ?\u54644 ? \u45208 ?\u44032 ?\u44256 ? \u51080 ?\u49845 ?\u45768 ?\u45796 ?.\line \u49324 ?\u50857 ? \u51473 ? \u50724 ?\u47448 ?\u47484 ? \u48156 ?\u44204 ?\u54616 ?\u44144 ?\u45208 ? \u49352 ?\u47196 ?\u50868 ? \u44592 ?\u45733 ?\u50640 ? \u45824 ?\u54620 ? \u51032 ?\u44204 ?\u51060 ? \u51080 ?\u45796 ?\u47732 ? \u50616 ?\u51228 ?\u46304 ?\u51648 ? \u54200 ?\u54616 ?\u44172 ? \u45224 ?\u44200 ?\u51452 ?\u49464 ?\u50836 ?.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \u50668 ?\u47084 ?\u48516 ?\u51032 ? \u54588 ?\u46300 ?\u48177 ?\u51008 ? YSL Tools\u47484 ? \u45908 ? \u51339 ?\u51008 ? \u46020 ?\u44396 ?\u47196 ? \u47564 ?\u46300 ?\u45716 ? \u45936 ? \u53360 ? \u46020 ?\u50880 ?\u51060 ? \u46121 ?\u45768 ?\u45796 ?.\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab \u51228 ?\u51089 ?\u51088 ?: \u51060 ?\u50980 ?\u49688 ? / Yoon-Soo Lee\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab \u48516 ?\u50556 ?: Game Sound Design \u183 ? Audio Implementation\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab \u47928 ?\u51032 ? \u48143 ? \u54588 ?\u46300 ?\u48177 ?: {\field{\*\fldinst{HYPERLINK "mailto:dldbstn0123@gmail.com"}}{\fldrslt{\ul
+{\field{\*\fldinst{HYPERLINK "mailto:dldbstn0123@gmail.com"}}{\fldrslt{\ul
+dldbstn0123@gmail.com
+}}}
+
+}}}
+\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel1 \b \fs32 English\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Hello, I\u8217'm Yoon-Soo Lee, a game sound designer.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 YSL Tools is a collection of REAPER scripts created to reduce repetitive work in real-world sound production. The tools focus on region management, collaboration workflows, sound-library organization, and item-envelope editing.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Feedback and bug reports are always welcome and will help improve the tools.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel1 \b \fs32 Tools\par}
 {\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel2 \b \fs28 Region Sync Manager\par}
-{\pard \ql \f0 \sa180 \li0 \fi0 A region collaboration and management tool for REAPER.\par}
-{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Staged region editing\par}
-{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab CSV import and export\par}
-{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab UID-based diff and 3-way merge\par}
-{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Region QC and bulk tools\par}
-{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Automatic backups and crash-recovery drafts\par}
-{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab English and Korean interface\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 REAPER \u47532 ?\u51204 ?\u51012 ? \u50504 ?\u51204 ?\u54616 ?\u44172 ? \u54200 ?\u51665 ?\u54616 ?\u44256 ? CSV\u47196 ? \u51452 ?\u44256 ?\u48155 ?\u44592 ? \u50948 ?\u54620 ? \u54801 ?\u50629 ? \u46020 ?\u44396 ?\u51077 ?\u45768 ?\u45796 ?.\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab \u48320 ?\u44221 ?\u49324 ?\u54637 ?\u51012 ? \u54869 ?\u51064 ?\u54620 ? \u46244 ? \u51201 ?\u50857 ?\u54616 ?\u45716 ? \u45800 ?\u44228 ?\u49885 ? \u47532 ?\u51204 ? \u54200 ?\u51665 ?\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab CSV \u44032 ?\u51256 ?\u50724 ?\u44592 ?\u183 ?\u45236 ?\u48372 ?\u45236 ?\u44592 ? \u48143 ? 3-Way \u48337 ?\u54633 ?\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab \u47532 ?\u51204 ? QC, \u51068 ?\u44292 ? \u51060 ?\u47492 ? \u48320 ?\u44221 ?, \u51088 ?\u46041 ? \u48177 ?\u50629 ?\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab \u48708 ?\u51221 ?\u49345 ? \u51333 ?\u47308 ? \u49884 ? \u54200 ?\u51665 ? \u45236 ?\u50857 ? \u48373 ?\u44396 ?\sa180\par}
 {\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel2 \b \fs28 Sound Lib Manager Pro\par}
-{\pard \ql \f0 \sa180 \li0 \fi0 A keyword and tag manager for sound libraries.\par}
-{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Fast keyword and tag search\par}
-{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Favorites, usage sorting, and Smart Collections\par}
-{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Automatic tag suggestions\par}
-{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Media Explorer handoff\par}
-{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab External JSON storage and rotating backups\par}
-{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab CSV import and export\par}
-{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab 8-second delete undo\par}
-{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab English and Korean interface\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \u49324 ?\u50868 ?\u46300 ? \u46972 ?\u51060 ?\u48652 ?\u47084 ?\u47532 ? \u44160 ?\u49353 ?\u50612 ?\u50752 ? \u53468 ?\u44536 ?\u47484 ? \u44288 ?\u47532 ?\u54616 ?\u44256 ? Media Explorer \u44160 ?\u49353 ?\u51004 ?\u47196 ? \u50672 ?\u44208 ?\u54616 ?\u45716 ? \u46020 ?\u44396 ?\u51077 ?\u45768 ?\u45796 ?.\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab \u45796 ?\u51473 ? \u44160 ?\u49353 ?\u50612 ?\u183 ?\u53468 ?\u44536 ? \u44160 ?\u49353 ?\u44284 ? Smart Collections\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab \u51600 ?\u44200 ?\u52286 ?\u44592 ?, \u49324 ?\u50857 ? \u44592 ?\u47197 ?, \u51088 ?\u46041 ? \u53468 ?\u44536 ? \u52628 ?\u52380 ?\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Media Explorer \u44160 ?\u49353 ? \u51204 ?\u49569 ? \u48143 ? \u44160 ?\u49353 ? \u44592 ?\u47197 ? \u44288 ?\u47532 ?\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab JSON \u48177 ?\u50629 ?\u183 ?\u48373 ?\u50896 ?\u44284 ? CSV \u51060 ?\u51204 ?\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel2 \b \fs28 Item Envelope Manager\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \u50500 ?\u51060 ?\u53596 ? \u54028 ?\u54805 ? \u50948 ?\u50640 ?\u49436 ? Take \u50644 ?\u48296 ?\u47196 ?\u54532 ?\u47484 ? \u51649 ?\u51217 ? \u46356 ?\u51088 ?\u51064 ?\u54616 ?\u45716 ? \u46020 ?\u44396 ?\u51077 ?\u45768 ?\u45796 ?.\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Volume, Pitch, Pan, Speed \u44257 ?\u49440 ? \u54200 ?\u51665 ?\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab \u45796 ?\u51473 ? \u44396 ?\u44036 ? \u48143 ? \u45796 ?\u51473 ? \u49440 ?\u53469 ? \u50500 ?\u51060 ?\u53596 ? \u51068 ?\u44292 ? \u51201 ?\u50857 ?\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab Speed A/B Preview Take\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab \u49324 ?\u50857 ?\u51088 ? \u54532 ?\u47532 ?\u49483 ? \u48143 ? \u54620 ?\u44397 ?\u50612 ?\u183 ?\u50689 ?\u50612 ? UI\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel1 \b \fs32 Installation\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 YSL Tools\u47484 ? \u49324 ?\u50857 ?\u54616 ?\u47140 ?\u47732 ? {\field{\*\fldinst{HYPERLINK "https://reapack.com/"}}{\fldrslt{\ul
+ReaPack
+}}}
+\u44284 ? ReaImGui\u44032 ? \u54596 ?\u50836 ?\u54633 ?\u45768 ?\u45796 ?.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel2 \b \fs28 1. ReaPack \u49444 ?\u52824 ?\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 {\field{\*\fldinst{HYPERLINK "https://reapack.com/"}}{\fldrslt{\ul
+ReaPack \u44277 ?\u49885 ? \u54856 ?\u54168 ?\u51060 ?\u51648 ?
+}}}
+\u50640 ?\u49436 ? ReaPack\u51012 ? \u49444 ?\u52824 ?\u54633 ?\u45768 ?\u45796 ?.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel2 \b \fs28 2. YSL Tools \u51200 ?\u51109 ?\u49548 ? \u46321 ?\u47197 ?\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 REAPER \u49345 ?\u45800 ? \u47700 ?\u45684 ?\u50640 ?\u49436 ? \u45796 ?\u51020 ? \u44221 ?\u47196 ?\u47484 ? \u50685 ?\u45768 ?\u45796 ?.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 {\b Extensions \u8594 ? ReaPack \u8594 ? Import repositories}\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \u50500 ?\u47000 ? \u51452 ?\u49548 ?\u47484 ? \u48537 ?\u50668 ?\u45347 ?\u49845 ?\u45768 ?\u45796 ?.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \f1 https://raw.githubusercontent.com/Leeyounsu0123/YSL-ReaPack/main/index.xml\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \u51200 ?\u51109 ?\u49548 ? \u46041 ?\u44592 ?\u54868 ? \u54980 ? ReaPack \u54056 ?\u53412 ?\u51648 ? \u47785 ?\u47197 ?\u50640 ?\u49436 ? {\f1 YSL Tools} \u46608 ?\u45716 ? \u50896 ?\u54616 ?\u45716 ? \u46020 ?\u44396 ? \u51060 ?\u47492 ?\u51012 ? \u44160 ?\u49353 ?\u54644 ? \u49444 ?\u52824 ?\u54633 ?\u45768 ?\u45796 ?.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel2 \b \fs28 3. ReaImGui \u49444 ?\u52824 ?\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 {\b Extensions \u8594 ? ReaPack \u8594 ? Browse packages}\u50640 ?\u49436 ? {\f1 ReaImGui}\u47484 ? \u44160 ?\u49353 ?\u54644 ? \u49444 ?\u52824 ?\u54633 ?\u45768 ?\u45796 ?.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 {\f1 js_ReaScriptAPI}\u45716 ? Region Sync Manager\u51032 ? \u45348 ?\u51060 ?\u54000 ?\u48652 ? \u54028 ?\u51068 ? \u49440 ?\u53469 ? \u52285 ?\u44284 ? Sound Lib Manager Pro\u51032 ? Media Explorer \u44160 ?\u49353 ? \u44592 ?\u47197 ? \u50672 ?\u46041 ?\u50640 ? \u49324 ?\u50857 ?\u54616 ?\u45716 ? \u49440 ?\u53469 ? \u49324 ?\u54637 ?\u51077 ?\u45768 ?\u45796 ?.\par}
 {\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel1 \b \fs32 Requirements\par}
-{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab REAPER\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab REAPER 7\par}
 {\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab ReaPack\par}
-{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab ReaImGui\par}
-{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab {\f1 js_ReaScriptAPI} is optional for Region Sync Manager file dialogs\sa180\par}
-{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel1 \b \fs32 Install with ReaPack\par}
-{\pard \ql \f0 \sa180 \li0 \fi0 After this repository has been uploaded to GitHub and the {\f1 deploy} workflow has finished successfully, import this URL in REAPER:\par}
-{\pard \ql \f0 \sa180 \li0 \fi0 \f1 https://raw.githubusercontent.com/YOUR_GITHUB_USERNAME/YSL-ReaPack/main/index.xml\par}
-{\pard \ql \f0 \sa180 \li0 \fi0 In REAPER:\par}
-{\pard \ql \f0 \sa0 \li360 \fi-360 1.\tx360\tab Open {\b Extensions > ReaPack > Import repositories}\par}
-{\pard \ql \f0 \sa0 \li360 \fi-360 2.\tx360\tab Paste the URL above after replacing {\f1 YOUR_GITHUB_USERNAME}\par}
-{\pard \ql \f0 \sa0 \li360 \fi-360 3.\tx360\tab Synchronize packages\par}
-{\pard \ql \f0 \sa0 \li360 \fi-360 4.\tx360\tab Search for {\f1 Region Sync Manager} or {\f1 Sound Lib Manager Pro}\sa180\par}
-{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel1 \b \fs32 Repository maintenance\par}
-{\pard \ql \f0 \sa180 \li0 \fi0 The GitHub Actions workflows validate the script metadata and automatically rebuild {\f1 index.xml} with the official {\f1 reapack-index} tool whenever the {\f1 main} or {\f1 master} branch is updated.\par}
-{\pard \ql \f0 \sa180 \li0 \fi0 For a new public release:\par}
-{\pard \ql \f0 \sa0 \li360 \fi-360 1.\tx360\tab Update the script's {\f1 @version}\par}
-{\pard \ql \f0 \sa0 \li360 \fi-360 2.\tx360\tab Update {\f1 @changelog}\par}
-{\pard \ql \f0 \sa0 \li360 \fi-360 3.\tx360\tab Commit and push\par}
-{\pard \ql \f0 \sa0 \li360 \fi-360 4.\tx360\tab Wait for the {\f1 deploy} workflow to finish\sa180\par}
-}
-]]></description>
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab ReaImGui 0.9.2 \u51060 ?\u49345 ?\par}
+{\pard \ql \f0 \sa0 \li360 \fi-360 \bullet \tx360\tab js_ReaScriptAPI \u49440 ?\u53469 ? \u49444 ?\u52824 ?\sa180\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \outlinelevel1 \b \fs32 License\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 Copyright (c) 2026 Yoon-Soo Lee. All rights reserved.\par}
+{\pard \ql \f0 \sa180 \li0 \fi0 \u49688 ?\u51221 ?\u48376 ?\u51012 ? \u54252 ?\u54632 ?\u54620 ? \u54028 ?\u51068 ?\u51032 ? \u51116 ?\u48176 ?\u54252 ?, \u51116 ?\u54032 ?\u47588 ?, \u51116 ?\u44172 ?\u49884 ? \u48143 ? 2\u52264 ? \u48176 ?\u54252 ?\u50640 ?\u45716 ? \u51228 ?\u51089 ?\u51088 ?\u51032 ? \u49324 ?\u51204 ? \u49436 ?\u47732 ? \u54728 ?\u44032 ?\u44032 ? \u54596 ?\u50836 ?\u54633 ?\u45768 ?\u45796 ?.\par}
+}]]></description>
+    <link rel="website" href="https://github.com/Leeyounsu0123/YSL-ReaPack">GitHub</link>
+    <link rel="website" href="https://reapack.com/">ReaPack</link>
   </metadata>
 </index>
